@@ -39,8 +39,12 @@ set wildmenu
 " ==============================================================================
 
 " Set Runtimepath
+" https://github.com/jeffkreeftmeijer/vim-numbertoggle
 set runtimepath^=~/.vim/plugins/number_toggle.vim
+set number relativenumber
+" https://github.com/godlygeek/tabular
 set runtimepath^=~/.vim/plugins/Tabular.vim
+
 
 " ==============================================================================
 " FORMATTING
@@ -78,6 +82,8 @@ set number
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 
+
+
 "set t_ti=
 "set t_te=
 
@@ -96,9 +102,14 @@ set hlsearch
 " koehler, morning, murphy, pablo, peachpuff, ron, shine, slate, torte, zellner
 set t_Co=256
 set background=dark
+" Install sceaduhelm with cmd below: 
+" curl -L https://raw.githubusercontent.com/wolf-dog/sceaduhelm.vim/master/colors/sceaduhelm.vim > ~/.vim/colors/sceaduhelm.vim
 colorscheme sceaduhelm 
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
+
+" Turn on visual highlighting
+highlight Visual cterm=reverse ctermbg=NONE
 
 " ==============================================================================
 " ALIASES and MACROS

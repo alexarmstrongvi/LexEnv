@@ -17,11 +17,17 @@ fi
 # Enviornment conifguration
 
 # Pretty colors
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+        export TERM='xterm-256color'
+else
+        export TERM='xterm-color'
+fi
 export CLICOLOR=1
-export TERM=xterm-256color
 export GREP_OPTIONS='--color=auto'
 export LSCOLORS=gxfxcxdxbxegedabagacad # Dark lscolor scheme
 
+# Colors and Style
+# Taken from https://natelandau.com/bash-scripting-utilities/
 bold="\[$(tput bold)\]"
 underline="\[$(tput sgr 0 1)\]"
 reset="\[$(tput sgr0)\]"
@@ -35,20 +41,18 @@ grey="\[$(tput setaf 6)\]"
 white="\[$(tput setaf 7)\]"
 
 # Change Prompt
-parse_git_branch() {
-     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
-}
-export PS1=\
-"${green}________________________________________________________________________________${reset}\n\
-| ${tan} \w ${reset} @ ${grey}\h ${reset} \n| => "
-export PS2="| => "
-#if [ -f "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh" ]; then
-#  GIT_PROMPT_ONLY_IN_REPO=1
-#  __GIT_PROMPT_DIR=$(brew --prefix)/opt/bash-git-prompt/share
-#  source "$(brew --prefix)/opt/bash-git-prompt/share/gitprompt.sh"
-#fi
-
+#export PS1=\
+#"\[${green}________________________________________________________________________________${reset}\n\
+#| ${tan} \w ${reset} @ ${grey} \h ${reset} ) \n| => \]"
+#export PS2="| => "
+export PS1="\e[0;32m________________________________________________________________________________\e[m\n\
+| \e[0;34m\w \e[m@ \e[0;33m\h\e[m)\n\
+| => "
+#export PS1="________________________________________________________________________________\n\
+#| \w @ \h)\n"
+#export PS2="| => "
 # Set Default Editor (change 'Nano' to the editor of your choice)
+
 export VISUAL=vim
 export EDITOR="$VISUAL"
 

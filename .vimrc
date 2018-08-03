@@ -40,6 +40,7 @@ set wildmenu
 
 " Set Runtimepath
 set runtimepath^=~/.vim/plugins/number_toggle.vim
+set runtimepath^=~/.vim/plugins/Tabular.vim
 
 " ==============================================================================
 " FORMATTING
@@ -77,6 +78,9 @@ set number
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 
+"set t_ti=
+"set t_te=
+
 " ==============================================================================
 " AESTHETIC
 " ==============================================================================
@@ -90,14 +94,11 @@ set hlsearch
 " Set Color Mode
 "  - Color Options : blue, darkblue, default, delek, desert, elflord, evening, 
 " koehler, morning, murphy, pablo, peachpuff, ron, shine, slate, torte, zellner
-" colo default "Set by Xterm  
-
+set t_Co=256
 set background=dark
-"  solarized options 
-let g:solarized_termcolors=16
-let g:solarized_visibility = "high"
-let g:solarized_contrast = "high"
-" colorscheme solarized
+colorscheme sceaduhelm 
+highlight Normal ctermbg=NONE
+highlight nonText ctermbg=NONE
 
 " ==============================================================================
 " ALIASES and MACROS
@@ -107,7 +108,8 @@ let g:solarized_contrast = "high"
 set pastetoggle=<F10>
 
 " Code folding based on indendationy
-:hi Folded ctermbg=DarkGrey
+highlight Folded ctermbg=234
+highlight Folded ctermfg=243
 augroup vimrc
   au BufReadPre * setlocal foldmethod=indent
   au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif

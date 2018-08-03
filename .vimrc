@@ -24,7 +24,7 @@ set confirm
 set smartcase
 
 " This let mouse scroll in vim
-set mouse=a
+set mouse=
 
 " Configure opening new files in vim:
 " first tab hit will complete as much as possible,

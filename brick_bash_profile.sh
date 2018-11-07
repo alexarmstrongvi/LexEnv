@@ -35,6 +35,6 @@ alias kcern='kinit -f $USER@CERN.CH'
 alias condor_ls='condor_q -nobatch | head; echo ...; condor_q -nobatch | grep -v 0+00:00:00 | tail; printf "Started but idle jobs : "; condor_q -nobatch | grep -v 0+00:00:00 | grep " I " | wc -l;'
 
 # Includes (must come after defining PATH variables)
-source ~/LexTools/bash_functions.sh
+source ~/LexTools/bashTools.sh
 remove_PATH_duplicates
 

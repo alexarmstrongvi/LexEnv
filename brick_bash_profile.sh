@@ -1,20 +1,9 @@
 ################################################################################
 # Set Paths
-# Check if still need to explicitely define path to avoid erros
-#PATH=/usr/lib64/qt-3.3/bin
-#PATH=$PATH:/usr/local/bin
-#PATH=$PATH:/bin
-#PATH=$PATH:/usr/bin
-#PATH=$PATH:/usr/local/sbin
-#PATH=$PATH:/sbin
-#PATH=$PATH:$HOME/bin
-#PATH=$PATH:$HOME/.local/bin
-#PATH=$PATH:$HOME/.local/lib/python2.7/site-packages
 PATH=$PATH:$HOME/LexTools/
 export PATH
 
-#PYTHONPATH=$PYTHONPATH:/data/home/alarmstr/.local/lib/python2.7/site-packages
-PYTHONPATH=$PYTHONPATH:/home/alarmstr/.local/lib
+#PYTHONPATH=$PYTHONPATH:/home/alarmstr/.local/lib
 PYTHONPATH=$PYTHONPATH:$HOME/LexTools
 export PYTHONPATH
 

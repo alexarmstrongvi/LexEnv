@@ -102,9 +102,11 @@ set hlsearch
 " koehler, morning, murphy, pablo, peachpuff, ron, shine, slate, torte, zellner
 set t_Co=256
 set background=dark
-" Install sceaduhelm with cmd below: 
+" Install cool color schemes with cmd below: 
 " curl -L https://raw.githubusercontent.com/wolf-dog/sceaduhelm.vim/master/colors/sceaduhelm.vim > ~/.vim/colors/sceaduhelm.vim
-colorscheme sceaduhelm 
+" colorscheme sceaduhelm
+" curl -L https://raw.githubusercontent.com/nanotech/jellybeans.vim/master/colors/jellybeans.vim > ~/.vim/colors/jellybeans.vim
+colorscheme jellybeans
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
 

@@ -2,7 +2,7 @@
 //#include "AtlasUtils.C" 
 //#include "AtlasLabels.C"
 // For python:
-// import AtlasStyle AtlasUtils AtlasLabels
+// import ROOT; import AtlasStyle 
 
 void rootlogon()
 {

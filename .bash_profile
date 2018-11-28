@@ -69,6 +69,7 @@ export BLOCKSIZE=1k
 alias showPATH="tr ':' '\n' <<< \"$PATH\""
 alias reload='source ~/.bash_profile && source ~/.bashrc'
 pwdf() { echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1"); }
+print_dir() { echo Directory tree for $1; find $1 | sed 's|[^/]*/|--- |g'; }
 
 # Preferred implementations
 alias cpe='cp -iv'                           # Preferred 'cp' implementation
@@ -77,6 +78,7 @@ alias mkdire='mkdir -pv'                     # Preferred 'mkdir' implementation
 alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
 alias lesse='less -FSRXc'                    # Preferred 'less' implementation
 cde() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
+
 
 ################################################################################
 #   2.  SITE SPECIFIC

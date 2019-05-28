@@ -11,7 +11,7 @@ void rootlogon()
       printf("Loading RootCore packages\n");
       gROOT->ProcessLine(".x $ROOTCOREDIR/scripts/load_packages.C");
       // To do this in python, include the following
-      // r.gROOT.ProcessLine(".x ${ROOTCOREDIR}/scripts/load_packages.C”)
+      // ROOT.gROOT.ProcessLine(".x ${ROOTCOREDIR}/scripts/load_packages.C)
   }
   
   // Load ATLAS style

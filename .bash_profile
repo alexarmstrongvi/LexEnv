@@ -77,6 +77,7 @@ alias mve='mv -iv'                           # Preferred 'mv' implementation
 alias mkdire='mkdir -pv'                     # Preferred 'mkdir' implementation
 alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
 alias lesse='less -FSRXc'                    # Preferred 'less' implementation
+alias tally='sort | uniq -c | sort -rn'    # Tally up occurances in output
 cde() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
 
 

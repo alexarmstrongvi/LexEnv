@@ -1,0 +1,3 @@
+Unix.*.Root.MacroPath:      .:$(HOME)/LexTools/atlasrootstyle:$(ROOTSYS)/macros
+Rint.Load:                  $(HOME)/rootalias.C
+Rint.Logon:                 $(HOME)/rootlogon.C

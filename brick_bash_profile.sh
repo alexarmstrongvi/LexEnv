@@ -22,8 +22,9 @@ export USER='alarmstr'
 alias setupATLAS='source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh'
 alias vomsAtlas='voms-proxy-init -voms atlas -valid 96:00'
 alias kcern='kinit -f $USER@CERN.CH'
-alias condor_ls='condor_q -nobatch | head; echo ...; condor_q -nobatch | grep -v 0+00:00:00 | tail; printf "Started but idle jobs : "; condor_q -nobatch | grep -v 0+00:00:00 | grep " I " | wc -l;'
+alias condor_ls='condor_q -nobatch | grep -v " X " | head; echo ...; condor_q -nobatch | grep -v 0+00:00:00 | tail; printf "Started but idle jobs : "; condor_q -nobatch | grep -v 0+00:00:00 | grep " I " | wc -l;'
 alias jodir='cd /cvmfs/atlas.cern.ch/repo/sw/Generators/MC15JobOptions/'
+alias devdir='cd /cvmfs/atlas.cern.ch/repo/sw/database/GroupData/dev/'
 function atlas_sw () {
     full_ver=$1
     short_ver=$(echo $full_ver | grep -o ^[0-9]*.[0-9]*)

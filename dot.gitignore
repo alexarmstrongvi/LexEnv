@@ -1,0 +1,36 @@
+# Specific files #
+##################
+local_bash_profile.sh 
+
+# Compiled source #
+###################
+*.o
+*.so
+*.pyc
+
+# Temporary files #
+###################
+*.swp
+*~
+
+# Packages #
+############
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+#*.log
+
+# OS generated files #
+######################
+.DS_Store*
+ehthumbs.db
+Icon?
+Thumbs.db
+
+# #
+######################
+RootCore*
+
+*.lock

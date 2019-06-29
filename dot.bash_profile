@@ -66,7 +66,7 @@ export BLOCKSIZE=1k
 # Useful functions and aliases
 
 # General
-alias showPATH="tr ':' '\n' <<< \"$PATH\""
+alias showPATH="tr ':' '\n' <<< \""'$PATH'"\""
 alias reload='source ~/.bash_profile && source ~/.bashrc'
 pwdf() { echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1"); }
 print_dir() { echo Directory tree for $1; find $1 | sed 's|[^/]*/|--- |g'; }

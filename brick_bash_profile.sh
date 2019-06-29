@@ -1,5 +1,6 @@
 ################################################################################
 # Set Paths
+PATH=$HOME/.local/bin/:$PATH
 PATH=$PATH:$HOME/LexTools/
 export PATH
 

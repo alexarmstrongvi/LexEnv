@@ -1,6 +1,6 @@
-//#include "AtlasStyle.C" 
-//#include "AtlasUtils.C" 
-//#include "AtlasLabels.C"
+#include "AtlasStyle.C" 
+#include "AtlasUtils.C" 
+#include "AtlasLabels.C"
 // For python:
 // import ROOT; import AtlasStyle 
 
@@ -16,8 +16,8 @@ void rootlogon()
   
   // Load ATLAS style
   //gROOT->LoadMacro("AtlasStyle.C"); //No longer works for ROOT6
-  //printf("Loading ATLAS Style settings for plots...\n");
-  //SetAtlasStyle();
+  printf("Loading ATLAS Style settings for plots...\n");
+  SetAtlasStyle();
   
   printf("Done loading scripts\n");
 }

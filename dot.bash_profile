@@ -17,7 +17,7 @@ fi
 # Enviornment conifguration
 
 # Pretty colors
-if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+if [ -e /usr/share/terminfo/*/xterm-256color ]; then
         export TERM='xterm-256color'
 else
         export TERM='xterm-color'
@@ -67,9 +67,9 @@ export BLOCKSIZE=1k
 
 # General
 alias showPATH="tr ':' '\n' <<< \""'$PATH'"\""
+alias showPYPATH="tr ':' '\n' <<< \""'$PYTHONPATH'"\""
 alias reload='source ~/.bash_profile && source ~/.bashrc'
 pwdf() { echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1"); }
-print_dir() { echo Directory tree for $1; find $1 | sed 's|[^/]*/|--- |g'; }
 
 # Preferred implementations
 alias cpe='cp -iv'                           # Preferred 'cp' implementation

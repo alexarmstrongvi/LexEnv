@@ -12,7 +12,7 @@ export PYTHONPATH
 ################################################################################
 # Environment Configuration
 export ATLAS_LOCAL_ROOT_BASE=/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase
-export ALRB_rootVersion=6.12.06-x86_64-slc6-gcc62-opt
+#export ALRB_rootVersion=6.12.06-x86_64-slc6-gcc62-opt
 export USER='alarmstr'
 
 export JODIR='/cvmfs/atlas.cern.ch/repo/sw/Generators/MC15JobOptions/'

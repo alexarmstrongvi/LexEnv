@@ -18,6 +18,7 @@ void rootlogon()
   //gROOT->LoadMacro("AtlasStyle.C"); //No longer works for ROOT6
   printf("Loading ATLAS Style settings for plots...\n");
   SetAtlasStyle();
+  // For python: ROOT.SetAtlasStyle()
   
   printf("Done loading scripts\n");
 }

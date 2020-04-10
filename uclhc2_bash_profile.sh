@@ -32,9 +32,40 @@ export DEVDIR='/cvmfs/atlas.cern.ch/repo/sw/database/GroupData/dev/'
 alias setupATLAS='source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh'
 alias vomsAtlas='voms-proxy-init -voms atlas -valid 96:00'
 alias kcern='kinit -f $USER@CERN.CH'
-alias condor_ls='condor_q -nobatch | grep -v " X " | head; echo ...; condor_q -nobatch | grep -v 0+00:00:00 | tail; printf "Started but idle jobs : "; condor_q -nobatch | grep -v 0+00:00:00 | grep " I " | wc -l;'
 #alias activateVenvPy2='source /data/uclhc/uci/user/armstro1/.venv/LexBasePy2/bin/activate'
 #alias activateVenvPy3='source /data/uclhc/uci/user/armstro1/.venv/LexBasePy3/bin/activate'
+
+function condor_ls () {
+    if [ -z "$1" ]; then
+        NPRINT=10;
+    else
+        NPRINT=$1
+    fi
+    condor_q -nobatch | grep -v " X " | head -n $NPRINT
+    echo -e "\n\t...\n"
+    condor_q -nobatch | grep -v 0+00:00:00 | tail -n $NPRINT
+    printf "Started but idle jobs : "; condor_q -nobatch | grep -v 0+00:00:00 | grep " I " | wc -l
+}
+function condor_ls2 () {
+    if [ -z "$1" ]; then
+        NPRINT=3;
+    else
+        NPRINT=$1
+    fi
+    condor_q -nobatch -wide | grep -v " X " | head -n $((4+$NPRINT)) | sed 's/\ \ */\ /g' | sed 's/\ /\n\t/g9'
+}
+function condor_ls3 () {
+    if [ -z "$1" ]; then
+        NPRINT=1;
+    else
+        NPRINT=$1
+    fi
+    condor_q -nobatch -wide | grep -v " X " | head -n $((4+$NPRINT)) | sed 's/\ \ */\ /g' | sed 's/\ /\n\t/g9'
+    echo -e "\n\t...\n"
+    condor_q -nobatch -wide | grep -v " X " | tail -n $((2+$NPRINT)) | head -n $NPRINT | sed 's/\ \ */\ /g' | sed 's/\ /\n\t/g9'
+    condor_q -nobatch -wide | tail -n 2
+    printf "Started but idle jobs : "; condor_q -nobatch | grep -v 0+00:00:00 | grep " I " | wc -l;
+}
 
 function atlas_sw () {
     full_ver=$1

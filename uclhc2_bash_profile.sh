@@ -7,9 +7,9 @@ PATH=$PATH:$HOME/LexTools/
 export PATH
 
 if [ -z $PYTHONPATH ]; then
-    PYTHONPATH=$PYTHONPATH:/home/alarmstr/.local/lib
+    PYTHONPATH=$PYTHONPATH:$HOME/.local/lib
 else
-    PYTHONPATH=/home/alarmstr/.local/lib
+    PYTHONPATH=$HOME/.local/lib
 fi
 PYTHONPATH=$PYTHONPATH:$HOME/LexTools
 export PYTHONPATH

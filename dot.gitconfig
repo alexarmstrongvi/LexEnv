@@ -12,3 +12,5 @@
 
     # See http://blog.kfish.org/2010/04/git-lola.html
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+
+    stash-revert = "!f() { N=${1:-0}; git stash show -p stash@{${N}} | git apply --reverse; }; f"

@@ -26,33 +26,12 @@ export CLICOLOR=1
 export GREP_OPTIONS='--color=auto'
 export LSCOLORS=gxfxcxdxbxegedabagacad # Dark lscolor scheme
 
-# Colors and Style
-# Taken from https://natelandau.com/bash-scripting-utilities/
-bold="\[$(tput bold)\]"
-underline="\[$(tput sgr 0 1)\]"
-reset="\[$(tput sgr0)\]"
-
-red="\[$(tput setaf 1)\]"
-green="\[$(tput setaf 2)\]"
-tan="\[$(tput setaf 3)\]"
-blue="\[$(tput setaf 4)\]"
-purple="\[$(tput setaf 5)\]"
-grey="\[$(tput setaf 6)\]"
-white="\[$(tput setaf 7)\]"
-
 # Change Prompt
-#export PS1=\
-#"\[${green}________________________________________________________________________________${reset}\n\
-#| ${tan} \w ${reset} @ ${grey} \h ${reset} ) \n| => \]"
-#export PS2="| => "
 export PS1="\e[0;32m________________________________________________________________________________\e[m\n\
 | \e[0;34m\w \e[m(\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)) @ \e[0;33m\h\e[m)\n\
 | => "
-#export PS1="________________________________________________________________________________\n\
-#| \w @ \h)\n"
-#export PS2="| => "
-# Set Default Editor (change 'Nano' to the editor of your choice)
 
+# Set Default Editor (change 'Nano' to the editor of your choice)
 export VISUAL=vim
 export EDITOR="$VISUAL"
 

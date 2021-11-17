@@ -5,7 +5,7 @@ LexEnv
 Below is all the commands needed for the full environment setup. 
 Feel free to pick and choose which elements are needed for your particular use case.
 
-**General Setup**
+## General Setup
 ```bash
 cd ${HOME}
 git clone git@github.com:alexarmstrongvi/LexEnv.git
@@ -25,7 +25,7 @@ Special cases
     path = ${HOME}/LexEnv/dot.gitconfig
 ```
 
-**Python Setup**
+## Python Setup
 
 If the default python version is not sufficient, install python (pip should be part of the python package).
 The latest python versions can be found on the [python website](https://www.python.org/downloads/)
@@ -33,12 +33,40 @@ The latest python versions can be found on the [python website](https://www.pyth
 If you do not have root access on the machine follow [these](http://thelazylog.com/install-python-as-local-user-on-linux/) instructions to install python. I prefer to use `--prefix ${HOME}/.local/lib/` as the location for all locally installed libraries with `${HOME}/.local/bin/` as the location for binaries or symlinks to binaries.
 
 Install viritualenv and virtualenvwrapper, expecially if you don't have root access on the machine, before installing any other packages. Follow the [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/) Docs to setup a base environment for your desired python 2 and python 3 versions. I usually add numpy and pandas to both of these to make sure everything is working and because I use those packages all the time.
+## Anaconda Setup
 
-**Installing bash packages without root access**
+Download installer from webpage.
+
+Check everything is up to date
+```bash
+conda update conda
+conda update --all
+conda clean --all
+```
+
+Edit your `.condarc` file to include the following:
+
+```bash
+channels:
+  - defaults
+  - conda-forge
+
+channel_priority: strict
+```
+`flexible` is the default priority for backward compatibility but strict is recommended as it is faster.
+
+Setup base env:
+```bash
+conda create -n LexBase python=3.9
+conda activate LexBase
+conda install jupyter numpy scipy pandas sklearn matplotlib seaborn
+```
+
+## Installing bash packages without root access
 
 See [link](https://monsterbashseq.wordpress.com/2016/01/24/how-to-install-linux-software-without-root-privileges/)
 
-**ROOT Setup**
+## ROOT Setup
 
 ```bash
 ln -s ${HOME}/LexEnv/dot.rootrc .rootrc
@@ -47,7 +75,7 @@ cd LexEnv/RootUtils
 ./setup_style_links.sh ${HOME}/atlasrootstyle
 ```
 
-**Updating Packages**
+## Updating Packages
 
 JellyBeans vim color scheme
 ```bash
@@ -55,7 +83,7 @@ cd ${HOME}/LexEnv/dot.vim/colors/
 curl -O https://raw.githubusercontent.com/nanotech/jellybeans.vim/master/colors/jellybeans.vim
 ```
 
-**Other notes**
+## Other notes
 
 Setting up the symlinks may not be possible if there is already a environment configuration file that exists.
 In this case merge the current file with the LexEnv file, delete the current file, and replace with a symlink.

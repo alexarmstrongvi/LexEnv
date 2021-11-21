@@ -4,17 +4,13 @@
 #
 ################################################################################
 
-# Include any bashrc configuration
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
-fi
-
 ################################################################################
 #   1.  GENERIC UNIX CONFIGURATION
 ################################################################################
 
 ############################################################################
 # Enviornment conifguration
+source ${HOME}/LexTools/bashTools.sh
 
 # Pretty colors
 if [ -e /usr/share/terminfo/*/xterm-256color ]; then
@@ -47,7 +43,7 @@ export BLOCKSIZE=1k
 # General
 alias showPATH="tr ':' '\n' <<< \""'$PATH'"\""
 alias showPYPATH="tr ':' '\n' <<< \""'$PYTHONPATH'"\""
-alias reload='source ~/.bash_profile && source ~/.bashrc'
+alias reload='source ~/.bash_profile'
 pwdf() { echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1"); }
 
 # Preferred implementations
@@ -64,5 +60,14 @@ cde() { builtin cd "$@"; ll; }               # Always list directory contents up
 #   2.  SITE SPECIFIC
 ################################################################################
 
+# Include any bashrc configuration
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
 # Add symlink to include local profile (keep name convention below)
 source ~/LexEnv/local_bash_profile.sh
+
+
+################################################################################
+e_success "== Completed running .bash_profile =="

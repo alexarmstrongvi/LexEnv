@@ -2,6 +2,12 @@
 #       .gitconfig file using the syntax 'path = /path/to/file'. It will
 #       be silently ignored otherwise.
 
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    interactive = auto
+
 [alias]
     # Nicely formatted history
     hist = log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short

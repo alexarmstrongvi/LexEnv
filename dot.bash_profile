@@ -55,7 +55,6 @@ alias lesse='less -FSRXc'                    # Preferred 'less' implementation
 alias tally='sort | uniq -c | sort -rn'    # Tally up occurances in output
 cde() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
 
-
 ################################################################################
 #   2.  SITE SPECIFIC
 ################################################################################
@@ -67,7 +66,6 @@ fi
 
 # Add symlink to include local profile (keep name convention below)
 source ~/LexEnv/local_bash_profile.sh
-
 
 ################################################################################
 e_success "== Completed running .bash_profile =="

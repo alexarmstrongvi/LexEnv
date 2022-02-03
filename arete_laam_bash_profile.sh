@@ -1,7 +1,8 @@
 ###############################################################################
 # Set Paths
-PATH="$HOME/.local/bin:$PATH"
-PATH="$HOME/bin:$PATH"
+#PATH="$HOME/.local/bin:$PATH"
+#PATH="$HOME/bin:$PATH"
+PATH="/opt/git/2.26.2/bin:$PATH"
 export PATH
 
 # >>> conda initialize >>>

@@ -1,0 +1,11 @@
+name: py311
+dependencies:
+  -python=3.11
+  -numpy
+  -scipy
+  -pandas
+  -matplotlib
+  -seaborn
+  -scikit-learn 
+  -jupyter
+  -jupyter_contrib_nbextensions

@@ -1,10 +1,12 @@
 ################################################################################
+# Configure interactive login bash shells
 #
-#  Description:  This file holds all my BASH configurations and aliases
-#
+# Configuration related to interactive shells goes here. In an interactive
+# non-login shell (e.g. VS Code terminal), note this script may not be executed
+# automatically. So source it manually if wanted.
 ################################################################################
 
-# Include any bashrc configuration
+# Include any non-login shell configurations
 if [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
@@ -32,25 +34,28 @@ export PS1="\e[0;32m____________________________________________________________
 | \e[0;34m\w \e[m(\$(git branch 2>/dev/null | grep '^*' | colrm 1 2)) @ \e[0;33m\h\e[m)\n\
 | => "
 
+
 # Set Default Editor (change 'Nano' to the editor of your choice)
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
 
-# Set default blocksize for ls, df, du
-# from this: http://hints.macworld.com/comment.php?mode=view&cid=24491
-export BLOCKSIZE=1k
+# Set default blocksize when displaying disk memory space in ls, df, du
+# https://www.gnu.org/software/coreutils/manual/html_node/Block-size.html
+export BLOCKSIZE=1k # 1024 byte blocks
 
 
 ################################################################################
 # Useful functions and aliases
-
 alias showPATH="tr ':' '\n' <<< \""'$PATH'"\""
 alias showPYPATH="tr ':' '\n' <<< \""'$PYTHONPATH'"\""
 alias reload='source ~/.bash_profile'
+# Print path to file
 pwdf() { echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1"); }
-alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
-alias tally='sort | uniq -c | sort -rn'    # Tally up occurances in output
+# Verbose ls
+alias ll='ls -FGlAhp'
+ # Tally up occurances in output
+alias tally='sort | uniq -c | sort -rn'
 
 ################################################################################
 #   2.  SITE SPECIFIC

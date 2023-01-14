@@ -10,6 +10,7 @@ Feel free to pick and choose which elements are needed for your particular use c
 cd ${HOME}
 git clone git@github.com:alexarmstrongvi/LexEnv.git
 ln -s ${HOME}/LexEnv/dot.bash_profile .bash_profile
+ln -s ${HOME}/LexEnv/dot.zprofile .zprofile
 ln -s ${HOME}/LexEnv/dot.vimrc .vimrc 
 ln -s ${HOME}/LexEnv/dot.gitignore .gitignore
 ln -s ${HOME}/LexEnv/dot.tmux.conf .tmux.conf

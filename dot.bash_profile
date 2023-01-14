@@ -4,6 +4,11 @@
 #
 ################################################################################
 
+# Include any bashrc configuration
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+fi
+
 ################################################################################
 #   1.  GENERIC UNIX CONFIGURATION
 ################################################################################
@@ -40,32 +45,21 @@ export BLOCKSIZE=1k
 ################################################################################
 # Useful functions and aliases
 
-# General
 alias showPATH="tr ':' '\n' <<< \""'$PATH'"\""
 alias showPYPATH="tr ':' '\n' <<< \""'$PYTHONPATH'"\""
 alias reload='source ~/.bash_profile'
 pwdf() { echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1"); }
-
-# Preferred implementations
-alias cpe='cp -iv'                           # Preferred 'cp' implementation
-alias mve='mv -iv'                           # Preferred 'mv' implementation
-alias mkdire='mkdir -pv'                     # Preferred 'mkdir' implementation
 alias ll='ls -FGlAhp'                       # Preferred 'ls' implementation
-alias lesse='less -FSRXc'                    # Preferred 'less' implementation
 alias tally='sort | uniq -c | sort -rn'    # Tally up occurances in output
-cde() { builtin cd "$@"; ll; }               # Always list directory contents upon 'cd'
 
 ################################################################################
 #   2.  SITE SPECIFIC
 ################################################################################
 
-# Include any bashrc configuration
-if [ -f ~/.bashrc ]; then
-    . ~/.bashrc
+if [ -f ~/LexEnv/local_bash_profile.sh ]; then
+    # Add symlink to include local profile (keep name convention below)
+    source ~/LexEnv/local_bash_profile.sh;
 fi
-
-# Add symlink to include local profile (keep name convention below)
-source ~/LexEnv/local_bash_profile.sh
 
 ################################################################################
 e_success "== Completed running .bash_profile =="

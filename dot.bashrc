@@ -1,3 +1,6 @@
+################################################################################
+# Bash Git Prompt configuration
+
 # Set config variables first
 GIT_PROMPT_ONLY_IN_REPO=1
 
@@ -20,6 +23,7 @@ GIT_PROMPT_SHOW_UNTRACKED_FILES=all # can be no, normal or all; determines count
 # GIT_PROMPT_THEME=Solarized # use theme optimized for solarized color scheme
 #source ~/.bash-git-prompt/gitprompt.sh
 
+################################################################################
 # Print about completion if in interative shell
 if [[ $- == *i* ]]; then
     green="$(tput setaf 2)"

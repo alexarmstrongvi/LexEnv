@@ -16,6 +16,7 @@ ln -s ${HOME}/LexEnv/dot.vimrc .vimrc
 ln -s ${HOME}/LexEnv/dot.gitignore .gitignore
 ln -s ${HOME}/LexEnv/dot.tmux.conf .tmux.conf
 ln -s ${HOME}/LexEnv/dot.vim .vim
+ln -s ${HOME}/LexEnv/dot.condarc .condarc
 ```
 Special cases  
 * `local_bash_profile.sh` - contains any site specific configurations. Add a symlink inside `LexEnv/` called `local_bash_profile.sh` that points to any a .sh file and it will be picked up by [`dot.bash_profile`](dot.bash_profile)
@@ -46,36 +47,9 @@ conda update --all
 conda clean --all
 ```
 
-Edit your `.condarc` file to include the following:
-
-```bash
-channels:
-  - defaults
-  - conda-forge
-
-channel_priority: strict
-```
-`flexible` is the default priority for backward compatibility but strict is recommended as it is faster.
-
-Setup base env:
-```bash
-conda create -n LexBase python=3.9
-conda activate LexBase
-conda install jupyter numpy scipy pandas sklearn matplotlib seaborn
-```
-
 ## Installing bash packages without root access
 
 See [link](https://monsterbashseq.wordpress.com/2016/01/24/how-to-install-linux-software-without-root-privileges/)
-
-## ROOT Setup
-
-```bash
-ln -s ${HOME}/LexEnv/dot.rootrc .rootrc
-git clone https://gitlab.cern.ch/alarmstr/atlasrootstyle
-cd LexEnv/RootUtils
-./setup_style_links.sh ${HOME}/atlasrootstyle
-```
 
 ## Updating Packages
 

@@ -1,3 +1,4 @@
 RootUtils/Atlas*.C
 RootUtils/Atlas*.h
 local_bash_profile.sh
+local_bashrc.sh

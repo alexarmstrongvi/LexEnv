@@ -2,6 +2,8 @@
 # Set Paths
 export PATH="${PATH}:${HOME}/local/bin"
 
+module load git vim anaconda
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/opt/anaconda/2020.11/py3.8/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
@@ -21,4 +23,4 @@ unset __conda_setup
 # Useful functions and aliases
 
 ################################################################################
-echo "== Completed running arete_am_bash_profile.sh =="
+e_success "== Completed running arete_am_bash_profile.sh =="

@@ -1,0 +1,11 @@
+channels:
+  - defaults
+  - conda-forge
+  - apple
+
+# "flexible" is the default priority for backward compatibility but strict is
+# recommended as it is faster.
+channel_priority: strict
+
+# Don't activate conda "base" environment on shell startup
+auto_activate_base: false

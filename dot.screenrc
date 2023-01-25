@@ -1,0 +1,45 @@
+################################################################################
+# GNU Screen Configuration
+################################################################################
+
+# Deactivate the startup message of screen
+# startup_message off
+
+# Set scrollback buffer
+defscrollback 10000
+
+# Indicate 256 color screen
+term screen-256color
+
+# Setup hardstatus 
+#hardstatus off
+hardstatus alwayslastline
+hardstatus string '%{= kG}[%{G}%H%? %1`%?%{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{B}%m/%d %{W}%C%A%{g}]'
+
+########################################
+# Update key bindings
+########################################
+# navigating regions with Ctrl-arrows
+bindkey "^[[1;5D" focus left
+bindkey "^[[1;5C" focus right
+bindkey "^[[1;5A" focus up
+bindkey "^[[1;5B" focus down
+
+# Bind keys for resizing
+bind L resize -h +10  # L increases horizontally by 10
+bind H resize -h -10  # H decreases horizontally by 10
+bind K resize -v +10  # K increases vertically by 10
+bind J resize -v -10  # K decreases vertically by 10
+
+# Window numbering starts at 1 not 0
+bind c screen -t Shell 1
+bind 0 select 10
+
+# Unbind screen lock (x and ctrl+x)
+bind ^x
+bind x
+
+################################################################################
+# EOF
+################################################################################
+

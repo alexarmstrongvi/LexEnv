@@ -21,26 +21,41 @@
 # >> source print_shell_type.sh
 # >> exit
 
+function is_interative_shell() {
+    [[ $- == *i* ]]
+}
+
+function is_zshell() {
+    [ -n "$ZSH_VERSION" ]
+}
+
+function is_bash_shell() {
+    [ -n "$BASH_VERSION" ]
+}
+
+function is_login_shell() {
+    { is_zshell && [[ -o login ]]; } || { is_bash_shell && shopt -q login_shell; }
+}
+
+
 function print_shell_type() {
-    printf "Running "
-    if [[ $- == *i* ]]; then
+    printf "Running in "
+    if is_interative_shell; then
         printf "an interactive "
     else
         printf "a non-interactive "
     fi
 
     #if 
-    if [ -n "$ZSH_VERSION" ] && [[ -o login ]]; then
-        printf "login "
-    elif [ -n "$BASH_VERSION" ] && shopt -q login_shell; then
+    if is_login_shell; then
         printf "login "
     else
         printf "non-login "
     fi
 
-    if [ -n "$ZSH_VERSION" ]; then
+    if is_zshell; then
         printf "Z shell"
-    elif [ -n "$BASH_VERSION" ]; then
+    elif is_bash_shell; then
         printf "bash shell"
     else
         printf "unknown shell"

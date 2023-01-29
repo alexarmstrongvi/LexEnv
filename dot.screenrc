@@ -11,6 +11,9 @@ defscrollback 10000
 # Indicate 256 color screen
 term screen-256color
 
+# Vim opens up in alternate screen window instead of cluttering current window upon exit
+altscreen on
+
 # Setup hardstatus 
 #hardstatus off
 hardstatus alwayslastline

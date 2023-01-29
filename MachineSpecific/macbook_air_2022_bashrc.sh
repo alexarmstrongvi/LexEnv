@@ -1,5 +1,11 @@
+################################################################################
+# Configure interactive bash shells on my Macbook Air 2022
+################################################################################
 # Set PATH, MANPATH, etc., for Homebrew.
 eval "$(/opt/homebrew/bin/brew shellenv)"
+
+# Preferred binaries
+export PATH="/opt/homebrew/bin/screen:$PATH"
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

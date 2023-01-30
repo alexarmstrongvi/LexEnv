@@ -2,7 +2,7 @@
 # Source global definitions
 if [ -f /etc/bashrc ]; then
     . /etc/bashrc
-    print_success "✔ == Completed running /etc/bashrc =="
+    print_success "== Completed running /etc/bashrc =="
 fi
 
 # Uncomment the following line if you don't like systemctl's auto-paging feature:
@@ -12,7 +12,7 @@ fi
 export PATH="${PATH}:${HOME}/local/bin"
 
 # Load modules
-module load git vim anaconda gcc
+module load git vim anaconda
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
@@ -30,4 +30,4 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 ################################################################################
-print_success "✔ == Completed running arete_am_bashrc.sh =="
+print_success "== Completed running arete_am_bashrc.sh =="

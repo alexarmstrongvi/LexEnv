@@ -100,13 +100,13 @@ remove_path_duplicates() {
 fmt_reset="$(tput sgr 0)"
 fmt_bold="$(tput bold)"
 fmt_underline="$(tput sgr 1)"
-fmt_red="$(tput setaf 1)"
-fmt_green="$(tput setaf 2)"
-fmt_yellow="$(tput setaf 3)"
-fmt_blue="$(tput setaf 4)"
-fmt_purple="$(tput setaf 5)"
-fmt_grey="$(tput setaf 6)"
-fmt_white="$(tput setaf 7)"
+fmt_red="$(tput setaf 9)"
+fmt_green="$(tput setaf 10)"
+fmt_yellow="$(tput setaf 11)"
+fmt_blue="$(tput setaf 12)"
+fmt_purple="$(tput setaf 13)"
+fmt_cyan="$(tput setaf 14)"
+fmt_grey="$(tput setaf 15)"
 
 # Special formats
 print_header() {

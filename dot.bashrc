@@ -28,8 +28,8 @@ export LSCOLORS=gxfxcxdxbxegedabagacad # Dark color scheme
 export GREP_OPTIONS='--color=auto'
 
 # Change Prompt
-export PS1="${fmt_green}________________________________________________________________________________${fmt_reset}\n\
-| ${fmt_white}\w ${fmt_reset}(\$(parse_git_branch)) @ ${fmt_yellow}\h${fmt_reset})\n\
+export PS1="\$([ \$? -eq 0 ] && echo ${fmt_green} || echo ${fmt_red})________________________________________________________________________________${fmt_reset}\n\
+| ${fmt_grey}\w ${fmt_reset}(${fmt_cyan}\$(parse_git_branch)${fmt_reset}) @ ${fmt_yellow}\h${fmt_reset})\n\
 | => "
 
 # Set Default Editor (change 'Nano' to the editor of your choice)

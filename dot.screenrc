@@ -5,19 +5,65 @@
 # Deactivate the startup message of screen
 # startup_message off
 
+# Change default escape key (Ctrl+A) which conflicts with home/beginning-of-line
+# key in terminals using emacs-style key bindings (usually the default) for the
+# Readline prompt
+# see https://www.emacswiki.org/emacs/GnuScreen
+# see https://jack.valmadre.net/notes/2020/02/06/escape-key/
+escape ^Bb # (Ctrl+b) similar to tmux
+
+# maptimeout 5
+
+# Setup hardstatus
+# Messages are overlaid in reverse video mode at the display line
+hardstatus off
+# Screen will reserve the last line of the display for the hardstatus
+hardstatus alwayslastline
+# Format hardstatus line
+# See https://www.gnu.org/software/screen/manual/html_node/String-Escapes.html
+hardstatus string '%{= kG}[%{G}%H%? %1`%?%{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{B}%m/%d %{W}%C%A%{g}]'
+
 # Set scrollback buffer
 defscrollback 10000
 
-# Indicate 256 color screen
+# Use bright colors for bold text
+attrcolor b ".I"
+# Indicate 256 color screen (not sure which one below works)
 term screen-256color
+termcapinfo xterm 'Co#256:AB=\E[48;5;%dm:AF=\E[38;5;%dm'
+# Turn on background-color-erase (bce)
+defbce on
 
 # Vim opens up in alternate screen window instead of cluttering current window upon exit
 altscreen on
 
-# Setup hardstatus 
-#hardstatus off
-hardstatus alwayslastline
-hardstatus string '%{= kG}[%{G}%H%? %1`%?%{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{B}%m/%d %{W}%C%A%{g}]'
+# mouse tracking allows to switch region focus by clicking
+# CON: Prevents selecting text for copy and paste
+# mousetrack on
+
+# Create default windows
+screen -t Shell1  1
+screen -t Shell2  2
+select 0
+
+# Automatically save current layout of regions
+layout autosave on
+
+# Preset layouts
+layout new one
+select 1 # window "1" created above at "default windows"
+
+layout new two
+select 1
+split -v
+focus right
+select 2
+
+# Select default layout
+layout select two
+
+# Select layout to attach when re-attaching to session
+layout attach two
 
 ########################################
 # Update key bindings
@@ -28,21 +74,17 @@ bindkey "^[[1;5C" focus right
 bindkey "^[[1;5A" focus up
 bindkey "^[[1;5B" focus down
 
-# Bind keys for resizing
+# Bind keys for resizing (e.g. escape+Ctrl+L)
 bind L resize -h +10  # L increases horizontally by 10
 bind H resize -h -10  # H decreases horizontally by 10
 bind K resize -v +10  # K increases vertically by 10
 bind J resize -v -10  # K decreases vertically by 10
 
 # Window numbering starts at 1 not 0
-bind c screen -t Shell 1
+bind c screen 1
 bind 0 select 10
 
 # Unbind screen lock (x and ctrl+x)
 bind ^x
 bind x
-
-################################################################################
-# EOF
-################################################################################
 

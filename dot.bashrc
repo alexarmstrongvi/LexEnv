@@ -5,6 +5,12 @@
 # should be sourced from ~/.bash_profile to effect interactive login shells
 ################################################################################
 source ~/LexEnv/bash_utils.sh
+if ! is_interactive_shell; then
+    # Some programs (e.g. remote shells started by scp) may invoke .bashrc in a
+    # non-interactive shell
+    # see https://unix.stackexchange.com/questions/257571/why-does-bashrc-check-whether-the-current-shell-is-interactive
+    return 0
+fi
 
 ############################################################################
 # Enviornment conifguration

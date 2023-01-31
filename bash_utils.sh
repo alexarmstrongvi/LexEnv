@@ -97,17 +97,18 @@ remove_path_duplicates() {
 ################################################################################
 # Print styles
 # Taken from https://natelandau.com/bash-scripting-utilities/
-fmt_reset="$(tput sgr 0)"
-fmt_bold="$(tput bold)"
-fmt_underline="$(tput sgr 1)"
-fmt_red="$(tput setaf 9)"
-fmt_green="$(tput setaf 10)"
-fmt_yellow="$(tput setaf 11)"
-fmt_blue="$(tput setaf 12)"
-fmt_purple="$(tput setaf 13)"
-fmt_cyan="$(tput setaf 14)"
-fmt_grey="$(tput setaf 15)"
-
+if is_interactive_shell; then
+    fmt_reset="$(tput sgr 0)"
+    fmt_bold="$(tput bold)"
+    fmt_underline="$(tput sgr 1)"
+    fmt_red="$(tput setaf 9)"
+    fmt_green="$(tput setaf 10)"
+    fmt_yellow="$(tput setaf 11)"
+    fmt_blue="$(tput setaf 12)"
+    fmt_purple="$(tput setaf 13)"
+    fmt_cyan="$(tput setaf 14)"
+    fmt_grey="$(tput setaf 15)"
+fi
 # Special formats
 print_header() {
     printf "\n${fmt_bold}${fmt_purple}==========  %s  ==========${fmt_reset}\n" "$@"

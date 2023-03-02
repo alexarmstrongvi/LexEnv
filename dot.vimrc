@@ -30,11 +30,24 @@ set smartcase
 " first tab hit will complete as much as possible,
 " the second tab hit will provide a list,
 " the third and subsequent tabs will cycle through completion options
-set wildmode=longest,list,full
+set wildmode=longest:list,full
 set wildmenu
 
 " Show relative line numbers except at cursor line
 set number relativenumber
+
+" When opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on. Useful for READMEs, etc.
+set autoindent
+set smartindent
+set cindent
+
+" Indentation settings for using 4 spaces instead of tabs.
+" Do not change 'tabstop' from its default value of 8 with this setup.
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set tabstop=8
 
 " Add all files in the startup folder to path
 " Allows for fuzzy-matching with :find
@@ -50,24 +63,6 @@ set path+=**
 set runtimepath^=~/.vim/plugins/number_toggle.vim
 " https://github.com/godlygeek/tabular
 set runtimepath^=~/.vim/plugins/Tabular.vim
-
-
-" ==============================================================================
-" FORMATTING
-" ==============================================================================
-
-" When opening a new line and no filetype-specific indenting is enabled, keep
-" the same indent as the line you're currently on. Useful for READMEs, etc.
-set autoindent
-set smartindent
-set cindent
-
-" Indentation settings for using 4 spaces instead of tabs.
-" Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-set tabstop=8
 
 " ==============================================================================
 " DISPLAY INFO
@@ -92,8 +87,9 @@ set laststatus=2
 " Disable banner
 let g:netrw_banner = 0
 " Tree view of files
-let g:netrw_liststyle = 3
+" let g:netrw_liststyle = 3
 let g:netrw_winsize = 30
+" Preserve line numbers and probably other stuff
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
 set nu
 " ==============================================================================
@@ -134,12 +130,13 @@ highlight Visual cterm=reverse ctermbg=NONE
 
 let mapleader = " "
 
+vmap :noh <leader>h
 nmap n nzz
 nmap N Nzz
 nmap <C-u> <C-u>zz
 nmap <C-d> <C-d>zz
 
-:nnoremap <leader>b :ls<CR>:buffer<Space>
+nnoremap <leader>b :ls<CR>:buffer<Space>
 
 nmap <leader>e :Lex<CR>
 
@@ -154,12 +151,25 @@ augroup vimrc
   au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 augroup END
 
-" function InsertTabWrapper()
-"   let col = col('.') - 1
-"   if !col || getline('.')[col - 1] !~ '\k'
-"     return "\<tab>"
-"   else
-"     return "\<c-p>"
-"   endif
-" endfunction
-" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+" Better tab completion
+function! Smart_TabComplete()
+  let line = getline('.')                         " current line
+
+  let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+                                                  " line to one character right
+                                                  " of the cursor
+  let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+  if (strlen(substr)==0)                          " nothing to match on empty string
+    return "\<tab>"
+  endif
+  let has_period = match(substr, '\.') != -1      " position of period, if any
+  let has_slash = match(substr, '\/') != -1       " position of slash, if any
+  if (!has_period && !has_slash)
+    return "\<C-X>\<C-P>"                         " existing text matching
+  elseif ( has_slash )
+    return "\<C-X>\<C-F>"                         " file matching
+  else
+    return "\<C-X>\<C-O>"                         " plugin matching
+  endif
+endfunction
+inoremap <tab> <c-r>=Smart_TabComplete()<CR>

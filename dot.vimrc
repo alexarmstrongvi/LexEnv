@@ -24,7 +24,7 @@ set confirm
 set smartcase
 
 " This let mouse scroll in vim
-set mouse=
+" set mouse=
 
 " Configure opening new files in vim:
 " first tab hit will complete as much as possible,
@@ -33,6 +33,13 @@ set mouse=
 set wildmode=longest,list,full
 set wildmenu
 
+" Show relative line numbers except at cursor line
+set number relativenumber
+
+" Add all files in the startup folder to path
+" Allows for fuzzy-matching with :find
+" Note that this can be slow for large directory structures
+set path+=**
 
 " ==============================================================================
 " PATH CONFIGURATION and PLUGINS
@@ -41,7 +48,6 @@ set wildmenu
 " Set Runtimepath
 " https://github.com/jeffkreeftmeijer/vim-numbertoggle
 set runtimepath^=~/.vim/plugins/number_toggle.vim
-set number relativenumber
 " https://github.com/godlygeek/tabular
 set runtimepath^=~/.vim/plugins/Tabular.vim
 
@@ -76,17 +82,20 @@ set showcmd
 " line of a window
 set ruler
 
-" Display line numbers on the left
-set number
-
 " Always display the status line, even if only one window is displayed
 set laststatus=2
-
-
 
 "set t_ti=
 "set t_te=
 
+" File searching
+" Disable banner
+let g:netrw_banner = 0
+" Tree view of files
+let g:netrw_liststyle = 3
+let g:netrw_winsize = 30
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+set nu
 " ==============================================================================
 " AESTHETIC
 " ==============================================================================
@@ -96,6 +105,12 @@ syntax on
 
 " Turn on search highlighting
 set hlsearch
+
+" Turn on incremental highlighting
+set incsearch
+
+" Set column to alternate color for max char per line reminder
+set colorcolumn=81
 
 " Set Color Mode
 "  - Color Options : blue, darkblue, default, delek, desert, elflord, evening, 
@@ -117,10 +132,21 @@ highlight Visual cterm=reverse ctermbg=NONE
 " ALIASES and MACROS
 " ==============================================================================
 
+let mapleader = " "
+
+nmap n nzz
+nmap N Nzz
+nmap <C-u> <C-u>zz
+nmap <C-d> <C-d>zz
+
+:nnoremap <leader>b :ls<CR>:buffer<Space>
+
+nmap <leader>e :Lex<CR>
+
 " Enable paste mode
 set pastetoggle=<F10>
 
-" Code folding based on indendationy
+" Code folding based on indendation
 highlight Folded ctermbg=234
 highlight Folded ctermfg=243
 augroup vimrc
@@ -128,13 +154,12 @@ augroup vimrc
   au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 augroup END
 
-" This tab-completes in C++
- function InsertTabWrapper()
-   let col = col('.') - 1
-   if !col || getline('.')[col - 1] !~ '\k'
-     return "\<tab>"
-   else
-     return "\<c-p>"
-   endif
- endfunction
- inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+" function InsertTabWrapper()
+"   let col = col('.') - 1
+"   if !col || getline('.')[col - 1] !~ '\k'
+"     return "\<tab>"
+"   else
+"     return "\<c-p>"
+"   endif
+" endfunction
+" inoremap <tab> <c-r>=InsertTabWrapper()<cr>

@@ -53,32 +53,48 @@ layout autosave on
 layout new one
 select 1 # window "1" created above at "default windows"
 
-layout new two
+layout new v
 select 1
 split -v
 focus right
 select 2
 
+layout new h
+select 1
+split
+focus down
+select 2
+resize -v -10
+
 # Select default layout
-layout select two
+# layout select h
 
 # Select layout to attach when re-attaching to session
-layout attach two
+layout attach h
 
 ########################################
 # Update key bindings
 ########################################
 # navigating regions with Ctrl-arrows
-bindkey "^[[1;5D" focus left
-bindkey "^[[1;5C" focus right
 bindkey "^[[1;5A" focus up
 bindkey "^[[1;5B" focus down
+bindkey "^[[1;5D" focus left
+bindkey "^[[1;5C" focus right
+# arrows for Mac
+bindkey "^^[OA" focus up
+bindkey "^^[OB" focus down
+bindkey "^[OC" focus left
+bindkey "^[OD" focus right
+bindkey "^[[OB" focus down
+#bindkey "^[OB" focus down
+bindkey "^^[[OB" focus down
+bindkey "^^[OB" focus down
 
 # Bind keys for resizing (e.g. escape+Ctrl+L)
 bind L resize -h +10  # L increases horizontally by 10
 bind H resize -h -10  # H decreases horizontally by 10
-bind K resize -v +10  # K increases vertically by 10
-bind J resize -v -10  # K decreases vertically by 10
+bind K resize -v +5   # K increases vertically by 5
+bind J resize -v -5   # K decreases vertically by 5
 
 # Window numbering starts at 1 not 0
 bind c screen 1
@@ -88,3 +104,9 @@ bind 0 select 10
 bind ^x
 bind x
 
+# Layout display and selection
+bind l layout show
+bind ! layout select 1
+bind @ layout select 2
+bind \# layout select 3
+bind $ layout select 4

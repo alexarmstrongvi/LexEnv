@@ -4,76 +4,99 @@
 "
 " ==============================================================================
 
-" ==============================================================================
-" GENERAL CONFIGURATION
-" ==============================================================================
-" Attempt to determine the type of a file based on its name and possibly its
-" contents. Use this to allow intelligent auto-indenting for each filetype,
-" and for plugins that are filetype specific.
-filetype indent plugin on
+" TODO
+" Auto wrap selected text
 
-" Set 'nocompatible' to ward off unexpected things that your distro might
-" have made, as well as sanely reset options when re-sourcing .vimrc
+" ==============================================================================
+" Vim under-the-hood behavior
+" ==============================================================================
+" Do not alter Vim to be more Vi-compatible
 set nocompatible
+" Enable file type detection
+filetype on
+" Enable loading the plugin files for specific file types
+filetype plugin on
 
-" Instead of failing a command because of unsaved changes, instead raise a
-" dialogue asking if you wish to save changed files.
+" ==============================================================================
+" Feature configuration
+" ==============================================================================
+" Always prompt user before executing command that could lose unsaved changes
 set confirm
 
-" Assume lowercase searches are case insensitive
+" Override the 'ignorecase' option if the search pattern contains uppercase
+" characters
 set smartcase
 
-" This let mouse scroll in vim
-" set mouse=
+" Enable the use of the mouse (e.g. scrolling)
+set mouse="a"
 
-" Configure opening new files in vim:
-" first tab hit will complete as much as possible,
-" the second tab hit will provide a list,
-" the third and subsequent tabs will cycle through completion options
+" Configure command-line completion (i.e. command-mode)
+" 1st tab) Complete as much as possible
+" 2nd tab) Provide a list
+" 3+ tab) Cycle through completion options
 set wildmode=longest,list,full
+" Operate in enhanced mode (i.e. pop up menu)
 set wildmenu
 
-" Show relative line numbers except at cursor line
-set number relativenumber
+" Turn on search highlighting
+set hlsearch
+" Turn on incremental highlighting
+set incsearch
 
-" Add all files in the startup folder to path
+" Add all folders in the startup folder to path
 " Allows for fuzzy-matching with :find
-" Note that this can be slow for large directory structures
+" Note that this can be slow for large directory structures (e.g ~/)
 set path+=**
 
-" ==============================================================================
-" PATH CONFIGURATION and PLUGINS
-" ==============================================================================
-
-" Set Runtimepath
-" https://github.com/jeffkreeftmeijer/vim-numbertoggle
-set runtimepath^=~/.vim/plugins/number_toggle.vim
-" https://github.com/godlygeek/tabular
-set runtimepath^=~/.vim/plugins/Tabular.vim
-
+" NetRW file explorter
+" Disable banner
+let g:netrw_banner = 0
+" Listing style (1 = one file per line with file info)
+let g:netrw_liststyle = 1
+" Window size
+let g:netrw_winsize = 30
+" Buffer settings (default = noma nomod nonu nowrap ro nobl 
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro nobl'
 
 " ==============================================================================
 " FORMATTING
+" See https://vim.fandom.com/wiki/Indenting_source_code:w
 " ==============================================================================
 
-" When opening a new line and no filetype-specific indenting is enabled, keep
-" the same indent as the line you're currently on. Useful for READMEs, etc.
+" set textwidth 
+
+" Automatically add indentation when starting a new line
 set autoindent
-set smartindent
-set cindent
+" Enable loading the indent file for specific file types
+filetype indent on
+" If file type based indentation is not great try 'smartindent' and 'cindent'
+" Try to be smart about when/how to add indentation
+" set smartindent
+" Use C indenting rules 
+" set cindent
 
-" Indentation settings for using 4 spaces instead of tabs.
-" Do not change 'tabstop' from its default value of 8 with this setup.
-set shiftwidth=4
-set softtabstop=4
+" Number of spaces that a <Tab> (default=8)
+" set tabstop=8
+" Use 'softtabstop' number of spaces when pressing <Tab>
 set expandtab
-set tabstop=8
+set softtabstop=4
+" Number of spaces to use for shifting (>>, <<) and aligning (==)
+set shiftwidth=4
 
 " ==============================================================================
-" DISPLAY INFO
+" DISPLAY
 " ==============================================================================
-" Turn On Syntax
-syntax enable
+" Add line numbers in hybrid mode
+set number relativenumber
+" Toggle between hybrid and absolute line numbers in a smart way
+" see https://jeffkreeftmeijer.com/vim-number/ 
+augroup numbertoggle
+  autocmd!
+  " Hybrid when focused on a buffer in normal mode
+  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+  " Absolute in insert mode or when not focused on the window
+  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+augroup END
 
 " Show partial commands in the last line of the screen
 set showcmd
@@ -82,35 +105,25 @@ set showcmd
 " line of a window
 set ruler
 
+" Set column to alternate color for max char per line reminder
+set colorcolumn=+1
+
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 
-"set t_ti=
-"set t_te=
+" Code folding based on indentation
+highlight Folded ctermbg=234
+highlight Folded ctermfg=243
+augroup vimrc
+  au BufReadPre * setlocal foldmethod=indent
+  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
+augroup END
 
-" File searching
-" Disable banner
-let g:netrw_banner = 0
-" Tree view of files
-let g:netrw_liststyle = 3
-let g:netrw_winsize = 30
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-set nu
 " ==============================================================================
 " AESTHETIC
 " ==============================================================================
-
 " Enable syntax highlighting
 syntax on
-
-" Turn on search highlighting
-set hlsearch
-
-" Turn on incremental highlighting
-set incsearch
-
-" Set column to alternate color for max char per line reminder
-set colorcolumn=81
 
 " Set Color Mode
 "  - Color Options : blue, darkblue, default, delek, desert, elflord, evening, 
@@ -118,9 +131,7 @@ set colorcolumn=81
 set t_Co=256
 set background=dark
 " Install cool color schemes with cmd below: 
-" curl -L https://raw.githubusercontent.com/wolf-dog/sceaduhelm.vim/master/colors/sceaduhelm.vim > ~/.vim/colors/sceaduhelm.vim
 " colorscheme sceaduhelm
-" curl -L https://raw.githubusercontent.com/nanotech/jellybeans.vim/master/colors/jellybeans.vim > ~/.vim/colors/jellybeans.vim
 colorscheme jellybeans
 highlight Normal ctermbg=NONE
 highlight nonText ctermbg=NONE
@@ -131,35 +142,74 @@ highlight Visual cterm=reverse ctermbg=NONE
 " ==============================================================================
 " ALIASES and MACROS
 " ==============================================================================
-
 let mapleader = " "
 
-nmap n nzz
-nmap N Nzz
-nmap <C-u> <C-u>zz
-nmap <C-d> <C-d>zz
+nnoremap <leader>noh :noh<CR>
 
-:nnoremap <leader>b :ls<CR>:buffer<Space>
+nnoremap n nzz
+nnoremap N Nzz
 
-nmap <leader>e :Lex<CR>
+nnoremap <leader>b :ls<CR>:buffer<Space>
 
-" Enable paste mode
+if executable('Lexplore')
+    "Toggle explorer
+    nnoremap <leader>e :Lexplore<CR>
+else
+    nnoremap <leader>e :Texplore<CR>
+endif
+nnoremap <leader>te :Texplore<CR>
+
+" Toggle paste mode to avoid any autoformatting effects (e.g. indentation)
 set pastetoggle=<F10>
 
-" Code folding based on indendation
-highlight Folded ctermbg=234
-highlight Folded ctermfg=243
-augroup vimrc
-  au BufReadPre * setlocal foldmethod=indent
-  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-augroup END
+"-------------------------------------------------------------------------------
+" Tab complete
+" https://vim.fandom.com/wiki/Smart_mapping_for_tab_completion
+function! Smart_TabComplete()
+    let line = getline('.')                         " current line
+    " from the start of the current line to one character right of the cursor
+    let substr = strpart(line, -1, col('.')+1)      
+    let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
+    if (strlen(substr)==0)                          " nothing to match on empty string
+	return "\<TAB>"
+    endif
+    let has_period = match(substr, '\.') != -1      " position of period, if any
+    let has_slash = match(substr, '\/') != -1       " position of slash, if any
+    if (!has_period && !has_slash)
+	return "\<C-x>\<C-p>"                         " existing text matching
+    elseif ( has_slash )
+	return "\<C-x>\<C-f>"                         " file matching
+    else
+	return "\<C-x>\<C-o>"                         " plugin matching
+    endif
+endfunction
+inoremap <TAB> <C-r>=Smart_TabComplete()<CR>
 
-" function InsertTabWrapper()
-"   let col = col('.') - 1
-"   if !col || getline('.')[col - 1] !~ '\k'
-"     return "\<tab>"
-"   else
-"     return "\<c-p>"
-"   endif
-" endfunction
-" inoremap <tab> <c-r>=InsertTabWrapper()<cr>
+"-------------------------------------------------------------------------------
+" Simulate smooth scrolling
+" See https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
+"nmap <C-u> <C-u>zz
+"nmap <C-d> <C-d>zz
+set scroll=28
+function SmoothScroll(up)
+    if a:up
+        let scrollaction="\<C-y>"
+    else
+        let scrollaction="\<C-e>"
+    endif
+    exec "normal " . scrollaction
+    redraw
+    let counter=1
+    while counter<&scroll
+        let counter+=1
+        sleep 10m
+        redraw
+        exec "normal " . scrollaction
+    endwhile
+endfunction
+" Add shortcut for normal and insert mode
+nnoremap <C-u> :call SmoothScroll(1)<Enter>
+nnoremap <C-d> :call SmoothScroll(0)<Enter>
+inoremap <C-u> <Esc>:call SmoothScroll(1)<Enter>i
+inoremap <C-d> <Esc>:call SmoothScroll(0)<Enter>i
+

@@ -42,8 +42,8 @@ altscreen on
 # mousetrack on
 
 # Create default windows
-screen -t Shell1  1
-screen -t Shell2  2
+screen -t run  1
+screen -t edit  2
 select 0
 
 # Automatically save current layout of regions
@@ -101,7 +101,7 @@ bind c screen 1
 bind 0 select 10
 
 # Unbind screen lock (x and ctrl+x)
-bind ^x
+bind ^X remove
 bind x
 
 # Layout display and selection

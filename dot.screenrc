@@ -75,20 +75,16 @@ layout attach h
 ########################################
 # Update key bindings
 ########################################
+
 # navigating regions with Ctrl-arrows
 bindkey "^[[1;5A" focus up
 bindkey "^[[1;5B" focus down
 bindkey "^[[1;5D" focus left
 bindkey "^[[1;5C" focus right
-# arrows for Mac
-bindkey "^^[OA" focus up
-bindkey "^^[OB" focus down
-bindkey "^[OC" focus left
-bindkey "^[OD" focus right
-bindkey "^[[OB" focus down
-#bindkey "^[OB" focus down
-bindkey "^^[[OB" focus down
-bindkey "^^[OB" focus down
+# TODO: arrows for Mac? Just use Ctrl-Tab for now
+# - "^[[A" and "^[OA" bind to up not Ctrl-up
+# - Adding a ^ prefix (e.g. "^^[[A") results in no key bindings
+bindkey "^^[[A" focus up
 
 # Bind keys for resizing (e.g. escape+Ctrl+L)
 bind L resize -h +10  # L increases horizontally by 10
@@ -106,6 +102,7 @@ bind x
 
 # Layout display and selection
 bind l layout show
+bind ~ layout select 0
 bind ! layout select 1
 bind @ layout select 2
 bind \# layout select 3

@@ -151,12 +151,16 @@ nnoremap N Nzz
 
 nnoremap <leader>b :ls<CR>:buffer<Space>
 
-if executable('Lexplore')
-    "Toggle explorer
-    nnoremap <leader>e :Lexplore<CR>
-else
-    nnoremap <leader>e :Texplore<CR>
-endif
+" Shift lines up and down
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
+"Toggle explorer
+nnoremap <leader>e :Lexplore<CR>
 nnoremap <leader>te :Texplore<CR>
 
 " Toggle paste mode to avoid any autoformatting effects (e.g. indentation)
@@ -190,7 +194,7 @@ inoremap <TAB> <C-r>=Smart_TabComplete()<CR>
 " See https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
 "nmap <C-u> <C-u>zz
 "nmap <C-d> <C-d>zz
-set scroll=28
+let scroll=28
 function SmoothScroll(up)
     if a:up
         let scrollaction="\<C-y>"

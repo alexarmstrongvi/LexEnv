@@ -1,9 +1,8 @@
 " ==============================================================================
-" Vim Configuration
+"                              Vim Configuration
 " ==============================================================================
 
-" ==============================================================================
-" Vim under-the-hood behavior {{{
+" General setup {{{
 " ==============================================================================
 " Do not alter Vim to be more Vi-compatible
 set nocompatible
@@ -11,9 +10,11 @@ set nocompatible
 filetype on
 " Enable loading the plugin files for specific file types
 filetype plugin on
-" }}}
 
-" ==============================================================================
+" Save all .swp files to single directory instead of alongside file
+" TODO: Are there unforseen downsides to this
+"set directory=$HOME/.vim/swapfiles//"
+" }}}
 " Feature configuration {{{
 " ==============================================================================
 " Always prompt user before executing command that could lose unsaved changes
@@ -29,7 +30,7 @@ set mouse="a"
 " Configure command-line completion (i.e. command-mode)
 " 1st tab) Complete as much as possible
 " 2nd tab) Provide a list
-" 3+ tab) Cycle through completion options
+" 3+ tabs) Cycle through completion options
 set wildmode=longest,list,full
 " Operate in enhanced mode (i.e. pop up menu)
 set wildmenu
@@ -47,18 +48,7 @@ set showmatch
 " Note that this can be slow for large directory structures (e.g ~/)
 set path+=**
 
-" NetRW file explorter
-" Disable banner
-let g:netrw_banner = 0
-" Listing style (1 = one file per line with file info)
-let g:netrw_liststyle = 1
-" Window size
-let g:netrw_winsize = 30
-" Buffer settings (default = noma nomod nonu nowrap ro nobl
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro nobl'
 " }}}
-
-" ==============================================================================
 " Formatting {{{
 " ==============================================================================
 " Maximum width of text that is being inserted and autowrapped (gq)
@@ -83,8 +73,6 @@ set softtabstop=4
 " Number of spaces to use for shifting (>>, <<) and aligning (==)
 set shiftwidth=4
 " }}}
-
-" ==============================================================================
 " Interface {{{
 " ==============================================================================
 " Add line numbers in hybrid mode
@@ -115,13 +103,14 @@ set colorcolumn=+1
 set laststatus=2
 
 " Show whitespace
-set listchars=space:.,tab:-->
+set listchars=lead:.,tab:-->
 set list
 
 " Code folding based on indentation
 set foldenable
 set foldnestmax=10
 set foldmethod=indent
+set foldlevelstart=3
 " TODO: Fix below
 " augroup vimrc
 "     " Set foldmethod upon loading file
@@ -130,22 +119,17 @@ set foldmethod=indent
 "     au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
 " augroup END
 " }}}
-
-" ==============================================================================
 " Color {{{
 " ==============================================================================
 " Enable syntax highlighting
 syntax enable
-
-" Set number of available colors (necessary?)
-" set t_Co=256
 
 " Set background color to dark mode
 " Most colorschemes have a light and dark mode
 set background=dark
 
 " Set color scheme
-"colorscheme jellybeans
+" colorscheme jellybeans
 colorscheme gruvbox
 
 " Set color terminal (cterm) colors for highlight-groups
@@ -155,42 +139,9 @@ highlight Visual cterm=reverse ctermbg=NONE
 highlight Folded ctermbg=234
 highlight Folded ctermfg=243
 " }}}
-
-" ==============================================================================
-" Aliases and Macros {{{
-" ==============================================================================
-let mapleader = " "
-
-" Move vertically by display lines instead of actual lines
-nnoremap j gj
-nnoremap k gk
-
-" Turn of highlighting
-nnoremap <leader>noh :noh<CR>
-
-" Keep search results centered
-nnoremap n nzz
-nnoremap N Nzz
-
-" List buffer then prompt for buffer selection
-nnoremap <leader>b :ls<CR>:buffer<Space>
-
-" Shift lines up and down
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-
-"Toggle explorer
-nnoremap <leader>e :Lexplore<CR>
-nnoremap <leader>te :Texplore<CR>
-
-" Toggle paste mode to avoid any autoformatting effects (e.g. indentation)
-set pastetoggle=<F10>
-
-" Trim trailing whitespace
-" See https://vim.fandom.com/wiki/Remove_unwanted_spaces
+" Custom functions {{{
 function! TrimTrailingWhitespace()
+    " See https://vim.fandom.com/wiki/Remove_unwanted_spaces
     " Save last search term
     let _s=@/
     " Save last cursor position
@@ -203,12 +154,9 @@ function! TrimTrailingWhitespace()
     " Reset cursor position
     call cursor(l, c)
 endfunction
-nnoremap <F5> :call TrimTrailingWhitespace()<CR>
 
-"-------------------------------------------------------------------------------
-" Tab complete
-" https://vim.fandom.com/wiki/Smart_mapping_for_tab_completion
 function! Smart_TabComplete()
+    " See https://vim.fandom.com/wiki/Smart_mapping_for_tab_completion
     " Get text of current line
     let line = getline('.')
     " from the start of the current line to one character right of the cursor
@@ -234,15 +182,10 @@ function! Smart_TabComplete()
         return "\<C-x>\<C-o>"
     endif
 endfunction
-inoremap <Tab> <C-r>=Smart_TabComplete()<CR>
 
-"-------------------------------------------------------------------------------
-" Simulate smooth scrolling
-" See https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
-"nmap <C-u> <C-u>zz
-"nmap <C-d> <C-d>zz
 let scroll=28
-function SmoothScroll(up)
+function! SmoothScroll(up)
+    " See https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
     if a:up
         let scrollaction="\<C-y>"
     else
@@ -258,18 +201,94 @@ function SmoothScroll(up)
         exec "normal " . scrollaction
     endwhile
 endfunction
-" Add shortcut for normal and insert mode
+" }}}
+" Aliases and Macros {{{
+" ==============================================================================
+let mapleader = " "
+
+" Move vertically by display lines instead of actual lines
+nnoremap j gj
+nnoremap k gk
+
+" Keep cursor in same location when joining lines
+nnoremap J mzJ`z
+
+" Turn of highlighting
+nnoremap <leader>noh :noh<CR>
+
+" Keep search results centered
+nnoremap n nzz
+nnoremap N Nzz
+
+" List buffer then prompt for buffer selection
+nnoremap <leader>b :ls<CR>:buffer<Space>
+
+" Shift lines up and down
+nnoremap <C-j> :m .+1<CR>==
+nnoremap <C-k> :m .-2<CR>==
+inoremap <C-j> <Esc>:m .+1<CR>==gi
+inoremap <C-k> <Esc>:m .-2<CR>==gi
+vnoremap <C-j> :m '>+1<CR>gv=gv
+vnoremap <C-k> :m '<-2<CR>gv=gv
+
+" Open netrw explorers from the directory of the current file
+nnoremap <leader>he :50Hexplore<CR>
+nnoremap <leader>se :50Sexplore<CR>
+nnoremap <leader>ve :50Vexplore!<CR>
+nnoremap <leader>te :Texplore %:h<CR><CR>
+nnoremap <leader>le :20Lexplore %:h<CR><CR>
+" Open Lexplore in vim directory or close Lexplore
+nnoremap <leader>e :Lexplore<CR>
+
+" Toggle paste mode to avoid any autoformatting effects (e.g. indentation)
+set pastetoggle=<F10>
+
+" Trim trailing whitespace
+nnoremap <F5> :call TrimTrailingWhitespace()<CR>
+
+" Tab complete
+if !has('nvim')
+    " Neovim uses better tab complete so don't overwrite
+    inoremap <Tab> <C-r>=Smart_TabComplete()<CR>
+endif
+
+" Simulate smooth scrolling
 nnoremap <C-u> :call SmoothScroll(1)<Enter>
 nnoremap <C-d> :call SmoothScroll(0)<Enter>
 
 " }}}
-
-" ==============================================================================
 " Plugins {{{
 " ==============================================================================
-" Tabular plugin
-noremap <leader>= :Tab<Space>/
-" }}}
+" Netrw file explorer (built-in but technically a plugin)
+" Disable banner
+let g:netrw_banner = 0
+" Listing style (i.e. how the files are listed)
+let g:netrw_liststyle = 0
+" Window size
+let g:netrw_winsize = 50
+" Behavior when selecting a file (default 0)
+let g:netrw_browse_split = 0
+" Keep vim's current directory the same as netrw's browsing directory.
+" Otherwise, '%' creates files in the folder vim is started in
+let g:netrw_keepdir = 0
+" Buffer settings (default = noma nomod nonu nowrap ro nobl
+let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
 
+" Tabular plugin
+noremap <leader>= :Tabularize<Space>/
+
+" TODO
+" New text objects: 
+" - Line
+" - Camel case words: CamelCaseMotion
+" - Function arguments: argtextobj
+" - Indent blocks: vim-indent-object
+" - Underscore separated words: 
+" Verbs
+" - Surround
+
+" }}}
+" Modeline {{{
 " modeline for configuring just this file
 " vim:foldmethod=marker:foldlevel=0
+" }}}

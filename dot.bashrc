@@ -29,7 +29,8 @@ fi
 # Make color output default for bash commands
 # - 'ls'
 export CLICOLOR=1 # FreeBSD and MacOSX require this be set
-export LSCOLORS=gxfxcxdxbxegedabagacad # Dark color scheme
+export LS_COLORS=gxfxcxdxbxegedabagacad # Dark color scheme
+export LSCOLORS=$LS_COLORS # FreeBSD and MacOSX uses LSCOLORS
 # - 'grep'
 export GREP_OPTIONS='--color=auto'
 
@@ -42,11 +43,9 @@ export PS1="\$([ \$? -eq 0 ] && echo ${fmt_green} || echo ${fmt_red})___________
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-
 # Set default blocksize when displaying disk memory space in ls, df, du
 # https://www.gnu.org/software/coreutils/manual/html_node/Block-size.html
 export BLOCKSIZE=1k # 1024 byte blocks
-
 
 ################################################################################
 # Useful functions and aliases
@@ -60,7 +59,6 @@ alias ll='ls -FGlAhp'
 alias tally='sort | uniq -c | sort -rn'
 # Disk usage of folders/files in pwd
 alias dupwd="du -h -d 0 .* *.* */ | sort -hr"
-
 
 ################################################################################
 # Site specific configuration

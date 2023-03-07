@@ -28,9 +28,11 @@ if [ -e /usr/share/terminfo/*/xterm-256color ]; then
 fi
 # Make color output default for bash commands
 # - 'ls'
-export CLICOLOR=1 # FreeBSD and MacOSX require this be set
-export LS_COLORS=gxfxcxdxbxegedabagacad # Dark color scheme
-export LSCOLORS=$LS_COLORS # FreeBSD and MacOSX uses LSCOLORS
+# FreeBSD and MacOSX uses CLICOLOR and LSCOLOR. Linux uses LS_COLOR
+export CLICOLOR=1
+export LSCOLORS=gxfxcxdxbxegedabagacad # Dark color scheme
+eval $(dircolors ~/LexEnv/dircolors/dircolors.ansi-universal)
+#export LS_COLORS=
 # - 'grep'
 export GREP_OPTIONS='--color=auto'
 

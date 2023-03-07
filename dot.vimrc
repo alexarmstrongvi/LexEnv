@@ -20,6 +20,9 @@ filetype plugin on
 " Always prompt user before executing command that could lose unsaved changes
 set confirm
 
+" Turn off bell sounds when errors occur
+set belloff=all
+
 " Override the 'ignorecase' option if the search pattern contains uppercase
 " characters
 set smartcase
@@ -43,6 +46,9 @@ set incsearch
 " When a bracket is inserted, briefly jump to the matching one
 set showmatch
 
+" Allow backspace to delete autoindent
+" set backspace=indent
+
 " Add all folders in the startup folder to path
 " Allows for fuzzy-matching with :find
 " Note that this can be slow for large directory structures (e.g ~/)
@@ -53,6 +59,9 @@ set path+=**
 " ==============================================================================
 " Maximum width of text that is being inserted and autowrapped (gq)
 set textwidth=80
+
+" Minimal number of screen lines to keep above and below the cursor.
+set scrolloff=10
 
 " See https://vim.fandom.com/wiki/Indenting_source_code
 " Automatically add indentation when starting a new line
@@ -80,11 +89,11 @@ set number relativenumber
 " Toggle between hybrid and absolute line numbers in a smart way
 " see https://jeffkreeftmeijer.com/vim-number/
 augroup numbertoggle
-  autocmd!
-  " Hybrid when focused on a buffer in normal mode
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-  " Absolute in insert mode or when not focused on the window
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+    autocmd!
+    " Hybrid when focused on a buffer in normal mode
+    autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+    " Absolute in insert mode or when not focused on the window
+    autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 augroup END
 
 " Show partial commands in the last line of the screen
@@ -93,6 +102,9 @@ set showcmd
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
 set ruler
+
+" Highlight the line with the cursor
+set cursorline
 
 " Set column to alternate color for max char per line reminder
 set colorcolumn=+1
@@ -106,18 +118,11 @@ set laststatus=2
 set listchars=lead:.,tab:-->
 set list
 
-" Code folding based on indentation
+" Code folding
 set foldenable
 set foldnestmax=10
 set foldmethod=indent
 set foldlevelstart=3
-" TODO: Fix below
-" augroup vimrc
-"     " Set foldmethod upon loading file
-"     au BufReadPre * setlocal foldmethod=indent
-"     " Switch from automatic to manual folding after the buffer is displayed
-"     au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-" augroup END
 " }}}
 " Color {{{
 " ==============================================================================
@@ -138,6 +143,8 @@ highlight NonText ctermbg=NONE
 highlight Visual cterm=reverse ctermbg=NONE
 highlight Folded ctermbg=234
 highlight Folded ctermfg=243
+highlight CursorLine ctermbg=233
+
 " }}}
 " Custom functions {{{
 function! TrimTrailingWhitespace()
@@ -183,7 +190,6 @@ function! Smart_TabComplete()
     endif
 endfunction
 
-let scroll=28
 function! SmoothScroll(up)
     " See https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
     if a:up

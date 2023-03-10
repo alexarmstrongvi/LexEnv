@@ -4,23 +4,26 @@
 
 " General setup {{{
 " ==============================================================================
-" Do not alter Vim to be more Vi-compatible
+" Do not alter Vim to be Vi-compatible
 set nocompatible
 " Enable file type detection
+" Filetype command located at ${VIMRUNTIME}/filetype.vim (:echo $VIMRUNTIME)
 filetype on
 " Enable loading the plugin files for specific file types
+" see ${VIMRUNTIME}/ftplugin/
 filetype plugin on
 
 " Save all .swp files to single directory instead of alongside file
 " TODO: Are there unforseen downsides to this
-"set directory=$HOME/.vim/swapfiles//"
+"set directory=$HOME/.vim/swapfiles/"
+
 " }}}
 " Feature configuration {{{
 " ==============================================================================
 " Always prompt user before executing command that could lose unsaved changes
 set confirm
 
-" Turn off bell sounds when errors occur
+" Turn off bell sounds when errors occur, instead use visual indicator
 set belloff=all
 
 " Override the 'ignorecase' option if the search pattern contains uppercase
@@ -81,6 +84,7 @@ set expandtab
 set softtabstop=4
 " Number of spaces to use for shifting (>>, <<) and aligning (==)
 set shiftwidth=4
+
 " }}}
 " Interface {{{
 " ==============================================================================
@@ -109,12 +113,10 @@ set cursorline
 " Set column to alternate color for max char per line reminder
 set colorcolumn=+1
 
-" Highlight the text line of the cursor
-
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 
-" Show whitespace
+" Show select whitespace characters
 set listchars=lead:.,tab:-->
 set list
 
@@ -123,6 +125,7 @@ set foldenable
 set foldnestmax=10
 set foldmethod=indent
 set foldlevelstart=3
+
 " }}}
 " Color {{{
 " ==============================================================================
@@ -134,15 +137,21 @@ syntax enable
 set background=dark
 
 " Set color scheme
-" colorscheme jellybeans
 colorscheme gruvbox
+" colorscheme jellybeans
+" colorscheme codedark
 
 " Set color terminal (cterm) colors for highlight-groups
+" No background for normal text
 highlight Normal ctermbg=NONE
+" No background for characters not actually in the text
 highlight NonText ctermbg=NONE
+" Reverse fg and bg colors when highlighting. No added background color
 highlight Visual cterm=reverse ctermbg=NONE
+" Set the bg and fg colors of folds to a dark grey
 highlight Folded ctermbg=234
 highlight Folded ctermfg=243
+" Set the cursorline highlight to a dark color that barely stands out
 highlight CursorLine ctermbg=233
 
 " }}}
@@ -207,6 +216,7 @@ function! SmoothScroll(up)
         exec "normal " . scrollaction
     endwhile
 endfunction
+
 " }}}
 " Aliases and Macros {{{
 " ==============================================================================
@@ -219,7 +229,7 @@ nnoremap k gk
 " Keep cursor in same location when joining lines
 nnoremap J mzJ`z
 
-" Turn of highlighting
+" Turn off highlighting
 nnoremap <leader>noh :noh<CR>
 
 " Keep search results centered
@@ -288,10 +298,7 @@ noremap <leader>= :Tabularize<Space>/
 " - Line
 " - Camel case words: CamelCaseMotion
 " - Function arguments: argtextobj
-" - Indent blocks: vim-indent-object
 " - Underscore separated words: 
-" Verbs
-" - Surround
 
 " }}}
 " Modeline {{{

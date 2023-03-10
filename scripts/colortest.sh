@@ -17,7 +17,6 @@
 # - https://www.shellhacks.com/bash-colors/
 # - https://unix.stackexchange.com/questions/274453/is-there-any-objective-benefit-to-escape-sequences-over-tput
 ################################################################################
-
 echo "256-bit Color Palette"
 for i in {0..255} ; do
     printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"

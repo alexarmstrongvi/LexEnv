@@ -4,6 +4,9 @@
 #
 # These commands are best suited for bash shells and mileage may vary for other
 # shells and line editors (e.g. zshell, vim command mode, etc.)
+#
+# For a useful guide, see
+# https://www.masteringemacs.org/article/keyboard-shortcuts-every-command-line-hacker-should-know-about-gnu-readline
 #################################################################################
 
 ### Completion ###
@@ -66,5 +69,20 @@ set bell-style visible
 # Quote the current or previous word
 "\C-xq": "\eb\"\ef\""
 
-# Add parentheses around the line
-"\C-xp": "\C-a$(\C-e)"
+# Dump all readline commands and if they are bound to any shortcut keys
+"\e\C-f": dump-functions
+# Dump all readline variables and what they are set to
+"\e\C-v": dump-variables
+
+$if Bash
+    # Wrap prompt in $(...)
+    "\C-xp": "\C-a$(\C-e)"
+$endif
+
+$if Python
+    # Wrap prompt in !help( ... )  (for PDB)
+    "\C-xh": "\C-a!help(\C-e)"
+    # Wrap prompt in dir( ... )
+    "\C-xd": "\C-adir(\C-e)"
+$endif
+

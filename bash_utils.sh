@@ -59,10 +59,6 @@ function print_shell_type() {
     printf "\n"
 }
 
-function parse_git_branch() {
-    git branch 2>/dev/null | grep '^*' | colrm 1 2
-}
-
 remove_path_duplicates() {
     old_path="$1"
     if [ -z "$old_path" ]; then

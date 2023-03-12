@@ -144,14 +144,13 @@ colorscheme gruvbox
 " Set color terminal (cterm) colors for highlight-groups
 " No background for normal text
 highlight Normal ctermbg=NONE
-" No background for characters not actually in the text
+" No background for implied vim characters not actually in the text
 highlight NonText ctermbg=NONE
 " Reverse fg and bg colors when highlighting. No added background color
 highlight Visual cterm=reverse ctermbg=NONE
 " Set the bg and fg colors of folds to a dark grey
-highlight Folded ctermbg=234
-highlight Folded ctermfg=243
-" Set the cursorline highlight to a dark color that barely stands out
+highlight Folded ctermbg=234 ctermfg=243
+" Set the cursorline highlight to a dark color that is not distracting
 highlight CursorLine ctermbg=233
 
 " }}}
@@ -239,22 +238,26 @@ nnoremap N Nzz
 " List buffer then prompt for buffer selection
 nnoremap <leader>b :ls<CR>:buffer<Space>
 
-" Shift lines up and down
-nnoremap <C-j> :m .+1<CR>==
-nnoremap <C-k> :m .-2<CR>==
-inoremap <C-j> <Esc>:m .+1<CR>==gi
-inoremap <C-k> <Esc>:m .-2<CR>==gi
-vnoremap <C-j> :m '>+1<CR>gv=gv
-vnoremap <C-k> :m '<-2<CR>gv=gv
+" Shift lines up and down (just delete and yank)
+" nnoremap <C-j> :m .+1<CR>==
+" nnoremap <C-k> :m .-2<CR>==
+" inoremap <C-j> <Esc>:m .+1<CR>==gi
+" inoremap <C-k> <Esc>:m .-2<CR>==gi
+" vnoremap <C-j> :m '>+1<CR>gv=gv
+" vnoremap <C-k> :m '<-2<CR>gv=gv
 
 " Open netrw explorers from the directory of the current file
+nnoremap <leader>e :Explore<CR>
 nnoremap <leader>he :50Hexplore<CR>
 nnoremap <leader>se :50Sexplore<CR>
 nnoremap <leader>ve :50Vexplore!<CR>
-nnoremap <leader>te :Texplore %:h<CR><CR>
-nnoremap <leader>le :20Lexplore %:h<CR><CR>
-" Open Lexplore in vim directory or close Lexplore
-nnoremap <leader>e :Lexplore<CR>
+nnoremap <leader>te :Texplore <CR>
+" Left explorer [:Lex] in Vim 8+:
+" - Toggles explorer open and closed instead of opening up multiple explorers
+" - Opens to current directory, not current file's directory
+" - Opens new window into previously current buffer (i.e. window#2)
+" - Creates new files in current directory instead of netrw directory
+nnoremap <leader>le :Lexplore <CR>
 
 " Toggle paste mode to avoid any autoformatting effects (e.g. indentation)
 set pastetoggle=<F10>
@@ -281,12 +284,12 @@ let g:netrw_banner = 0
 " Listing style (i.e. how the files are listed)
 let g:netrw_liststyle = 0
 " Window size
-let g:netrw_winsize = 50
+let g:netrw_winsize = 20
 " Behavior when selecting a file (default 0)
 let g:netrw_browse_split = 0
 " Keep vim's current directory the same as netrw's browsing directory.
 " Otherwise, '%' creates files in the folder vim is started in
-let g:netrw_keepdir = 0
+" let g:netrw_keepdir = 0
 " Buffer settings (default = noma nomod nonu nowrap ro nobl
 let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
 
@@ -294,11 +297,11 @@ let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
 noremap <leader>= :Tabularize<Space>/
 
 " TODO
-" New text objects: 
+" New text objects:
 " - Line
 " - Camel case words: CamelCaseMotion
 " - Function arguments: argtextobj
-" - Underscore separated words: 
+" - Underscore separated words:
 
 " }}}
 " Modeline {{{

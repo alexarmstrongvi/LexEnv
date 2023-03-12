@@ -1,3 +1,18 @@
 [submodule "shell/zsh-git-prompt"]
 	path = shell/zsh-git-prompt
 	url = git@github.com:olivierverdier/zsh-git-prompt.git
+[submodule "dot.vim/pack/myplugins/start/tabular"]
+	path = dot.vim/pack/myplugins/start/tabular
+	url = https://github.com/godlygeek/tabular
+[submodule "dot.vim/pack/myplugins/start/vim-surround"]
+	path = dot.vim/pack/myplugins/start/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "dot.vim/pack/myplugins/start/vim-commentary"]
+	path = dot.vim/pack/myplugins/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "dot.vim/pack/myplugins/start/vim-repeat"]
+	path = dot.vim/pack/myplugins/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "dot.vim/pack/myplugins/opt/vim-airline"]
+	path = dot.vim/pack/myplugins/opt/vim-airline
+	url = git@github.com:vim-airline/vim-airline.git

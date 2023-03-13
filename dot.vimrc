@@ -14,8 +14,7 @@ filetype on
 filetype plugin on
 
 " Save all .swp files to single directory instead of alongside file
-" TODO: Are there unforseen downsides to this
-"set directory=$HOME/.vim/swapfiles/"
+set directory^=$HOME/LexEnv/.vim/swapfiles//"
 
 " }}}
 " Feature configuration {{{
@@ -124,13 +123,16 @@ set list
 set foldenable
 set foldnestmax=10
 set foldmethod=indent
-set foldlevelstart=3
+set foldlevelstart=1
 
 " }}}
 " Color {{{
 " ==============================================================================
 " Enable syntax highlighting
 syntax enable
+
+" Set the default shell type when vim is unable to infer
+let g:is_bash = 1
 
 " Set background color to dark mode
 " Most colorschemes have a light and dark mode

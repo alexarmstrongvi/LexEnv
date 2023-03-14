@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ################################################################################
 # Configure interactive bash shells
 #
@@ -28,25 +29,67 @@ if [ -e /usr/share/terminfo/*/xterm-256color ]; then
 fi
 # Make color output default for bash commands
 # - 'ls'
-export CLICOLOR=1 # FreeBSD and MacOSX require this be set
+# FreeBSD and MacOSX uses CLICOLOR and LSCOLOR. Linux uses LS_COLOR
+export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad # Dark color scheme
+if command -v dircolors; then
+    eval $(dircolors ~/LexEnv/dircolors/dircolors.ansi-universal)
+fi
+#export LS_COLORS=
 # - 'grep'
 export GREP_OPTIONS='--color=auto'
 
+# Load and configure git prompt utils
+# See https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
+source ${HOME}/LexEnv/shell/git-prompt.sh
+# Unstaged (*) and staged (+) changes will be shown next to the branch name
+GIT_PS1_SHOWDIRTYSTATE=true
+# Show '$' if there are stash entries
+GIT_PS1_SHOWSTASHSTATE=true
+# Show '%' if there are untracked files
+GIT_PS1_SHOWUNTRACKEDFILES=true
+# Show difference between HEAD and its upstream
+GIT_PS1_SHOWUPSTREAM="verbose,name"
+# Set separator between branch name and state symbols (default: space)
+GIT_PS1_STATESEPARATOR="|"
+# Add "|CONFLICT" to prompt if there are unresolved conflicts
+GIT_PS1_SHOWCONFLICTSTATE=true
+# Colored hints
+GIT_PS1_SHOWCOLORHINTS=true
+
 # Change Prompt
-export PS1="\$([ \$? -eq 0 ] && echo ${fmt_green} || echo ${fmt_red})________________________________________________________________________________${fmt_reset}\n\
-| ${fmt_grey}\w ${fmt_reset}(${fmt_cyan}\$(parse_git_branch)${fmt_reset}) @ ${fmt_yellow}\h${fmt_reset})\n\
+# See PROMPTING in `man bash`
+function prompt_command() {
+    # Set variables each time a prompt (PS1) is about to be generated
+    if [ $? -eq 0 ]; then
+        fmt_color="$fmt_green"
+    else
+        fmt_color="$fmt_red"
+    fi
+    PS1_SEPARATOR="${fmt_color}________________________________________________________________________________${fmt_reset}"
+
+    PS1_GIT="$(__git_ps1 \(${fmt_purple}%s${fmt_reset}\))"
+    # PS1_GIT="$(__git_ps1 \(%s\))"
+}
+# Set the number of trailing directory components to retain when expanding the
+# \w and \W prompt string escapes
+PROMPT_DIRTRIM=5
+export PROMPT_COMMAND=prompt_command
+# \t = Time in 24-hour HH:MM:SS format
+# \w = Working directory
+# \h = hostname up to first '.'
+export PS1="\
+\${PS1_SEPARATOR}\n\
+| [${fmt_cyan}\t${fmt_reset}] ${fmt_grey}${fmt_bold}\w ${fmt_reset}\${PS1_GIT} @ ${fmt_yellow}\h${fmt_reset})\n\
 | => "
 
 # Set Default Editor (change 'Nano' to the editor of your choice)
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
-
 # Set default blocksize when displaying disk memory space in ls, df, du
 # https://www.gnu.org/software/coreutils/manual/html_node/Block-size.html
 export BLOCKSIZE=1k # 1024 byte blocks
-
 
 ################################################################################
 # Useful functions and aliases
@@ -60,7 +103,6 @@ alias ll='ls -FGlAhp'
 alias tally='sort | uniq -c | sort -rn'
 # Disk usage of folders/files in pwd
 alias dupwd="du -a -h -d 1 | sort -hr"
-
 
 ################################################################################
 # Site specific configuration

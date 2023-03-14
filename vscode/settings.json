@@ -1,0 +1,29 @@
+{
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.startupEditor": "none",
+
+    "notebook.lineNumbers": "on",
+    
+    "editor.renderWhitespace": "all",
+    "editor.lineNumbers": "relative",
+    "editor.rulers": [
+        80,
+        100
+    ],
+    
+    "terminal.integrated.commandsToSkipShell": [
+        "language-julia.interrupt"
+    ],
+    "julia.enableTelemetry": true,
+    "julia.symbolCacheDownload": true,
+    "julia.executablePath": "/opt/homebrew/bin/julia",
+    "julia.enableCrashReporter": true,
+    
+    "git.autofetch": true,
+   
+    "[python]": {
+        "editor.formatOnType": true
+    },
+    
+    "vim.smartRelativeLine": true
+}

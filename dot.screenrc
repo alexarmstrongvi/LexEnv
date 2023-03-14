@@ -7,10 +7,12 @@
 
 # Change default escape key (Ctrl+A) which conflicts with home/beginning-of-line
 # key in terminals using emacs-style key bindings (usually the default) for the
-# Readline prompt
+# Readline prompt. Escape key should not conflict with shortcuts for the OS
+# (Windows, MacOS), terminal emulator (PowerShell, Terminal), or text editor
+# (Vim)
 # see https://www.emacswiki.org/emacs/GnuScreen
 # see https://jack.valmadre.net/notes/2020/02/06/escape-key/
-escape ^Bb # (Ctrl+b) similar to tmux
+escape ^Hh # (Ctrl+h)
 
 # maptimeout 5
 
@@ -50,49 +52,48 @@ select 0
 layout autosave on
 
 # Preset layouts
-layout new one
-select 1 # window "1" created above at "default windows"
+layout new nosplit
+select edit # window "edit" created above at "default windows"
 
-layout new v
-select 1
+# Vertical split with editor on left on command line on right
+layout new vsplit
+select edit
 split -v
 focus right
-select 2
+select run
 
-layout new h
-select 1
+# Horizontal split with editor on top and command line on bottom
+layout new hsplit
+select edit
 split
 focus down
-select 2
+select run
 resize -v -10
 
 # Select default layout
-# layout select h
+# layout select hsplit
 
 # Select layout to attach when re-attaching to session
-layout attach h
+layout attach hsplit
 
 ########################################
 # Update key bindings
 ########################################
+
 # navigating regions with Ctrl-arrows
 bindkey "^[[1;5A" focus up
 bindkey "^[[1;5B" focus down
 bindkey "^[[1;5D" focus left
 bindkey "^[[1;5C" focus right
-# arrows for Mac
-bindkey "^^[OA" focus up
-bindkey "^^[OB" focus down
-bindkey "^[OC" focus left
-bindkey "^[OD" focus right
-bindkey "^[[OB" focus down
-#bindkey "^[OB" focus down
-bindkey "^^[[OB" focus down
-bindkey "^^[OB" focus down
+
+# TODO: arrows for Mac? Just use Ctrl-Tab for now
+# - "^[[A" and "^[OA" bind to up not Ctrl-up
+# - Adding a ^ prefix (e.g. "^^[[A") results in no key bindings
+bindkey "^^[[A" focus up
 
 # Bind keys for resizing (e.g. escape+Ctrl+L)
-bind L resize -h +10  # L increases horizontally by 10
 bind H resize -h -10  # H decreases horizontally by 10
+bind L resize -h +10  # L increases horizontally by 10
 bind K resize -v +5   # K increases vertically by 5
 bind J resize -v -5   # K decreases vertically by 5
 
@@ -106,6 +107,7 @@ bind x
 
 # Layout display and selection
 bind l layout show
+bind ~ layout select 0
 bind ! layout select 1
 bind @ layout select 2
 bind \# layout select 3

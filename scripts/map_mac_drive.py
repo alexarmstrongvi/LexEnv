@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 from pathlib import Path
 import pprint
 import json
@@ -5,19 +6,19 @@ from typing import Callable, Any
 
 # Constants
 UNIX_STD_DIRS = (
-    # This pattern of folders occurs in many places in a unix system
-    # - /
-    # - /usr/
-    # - /opt/local
-    'bin',     # Binaries
-    'sbin',    # System binaries
-    'lib',     # Libraries for binaries
-    'libexec', # Libraries for executable programs
-    'share',   # Read-only architecture independent data files
-    'include', #
-    'etc',     # Program configuration files
-    'var',     #
-    'tmp',     # Temporary files often cleared during reboot
+       # This pattern of folders occurs in many places in a unix system
+        # - /
+        # - /usr/
+        # - /opt/local
+        'bin',     # Binaries
+        'sbin',    # System binaries
+        'lib',     # Libraries for binaries
+        'libexec', # Libraries for executable programs
+        'share',   # Read-only architecture independent data files
+        'include', #
+        'etc',     # Program configuration files
+        'var',     #
+        'tmp',     # Temporary files often cleared during reboot
 )
 
 # Type aliases
@@ -180,10 +181,19 @@ def map_Users_home(path: Path, pname: str) -> DirMap:
         return ls(path)
     elif path.name == 'Library':
         return apply_map(path, map_Users_home_Library)
+    elif path.name == '.local':
+        return apply_map(path, map_Users_home_local)
     return pname
 
 def map_Users_home_Library(path: Path, pname: str) -> DirMap:
     if path.name == 'CloudStorage':
+        return ls(path)
+    return pname
+
+def map_Users_home_local(path: Path, pname: str) -> DirMap:
+    if path.name == 'share':
+        return ls(path)
+    if path.name == 'state':
         return ls(path)
     return pname
 

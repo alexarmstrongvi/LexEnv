@@ -1,27 +1,29 @@
 " ==============================================================================
-"
-" Vim Profile for Alex Armstrong
-"
+"                              Vim Configuration
 " ==============================================================================
 
-" TODO
-" Auto wrap selected text
-
+" General setup {{{
 " ==============================================================================
-" Vim under-the-hood behavior
-" ==============================================================================
-" Do not alter Vim to be more Vi-compatible
+" Do not alter Vim to be Vi-compatible
 set nocompatible
 " Enable file type detection
+" Filetype command located at ${VIMRUNTIME}/filetype.vim (:echo $VIMRUNTIME)
 filetype on
 " Enable loading the plugin files for specific file types
+" see ${VIMRUNTIME}/ftplugin/
 filetype plugin on
 
-" ==============================================================================
-" Feature configuration
+" Save all .swp files to single directory instead of alongside file
+set directory^=$HOME/LexEnv/.vim/swapfiles//"
+
+" }}}
+" Feature configuration {{{
 " ==============================================================================
 " Always prompt user before executing command that could lose unsaved changes
 set confirm
+
+" Turn off bell sounds when errors occur, instead use visual indicator
+set belloff=all
 
 " Override the 'ignorecase' option if the search pattern contains uppercase
 " characters
@@ -33,7 +35,7 @@ set mouse="a"
 " Configure command-line completion (i.e. command-mode)
 " 1st tab) Complete as much as possible
 " 2nd tab) Provide a list
-" 3+ tab) Cycle through completion options
+" 3+ tabs) Cycle through completion options
 set wildmode=longest,list,full
 " Operate in enhanced mode (i.e. pop up menu)
 set wildmenu
@@ -43,28 +45,27 @@ set hlsearch
 " Turn on incremental highlighting
 set incsearch
 
+" When a bracket is inserted, briefly jump to the matching one
+set showmatch
+
+" Allow backspace to delete autoindent
+" set backspace=indent
+
 " Add all folders in the startup folder to path
 " Allows for fuzzy-matching with :find
 " Note that this can be slow for large directory structures (e.g ~/)
 set path+=**
 
-" NetRW file explorter
-" Disable banner
-let g:netrw_banner = 0
-" Listing style (1 = one file per line with file info)
-let g:netrw_liststyle = 1
-" Window size
-let g:netrw_winsize = 30
-" Buffer settings (default = noma nomod nonu nowrap ro nobl 
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro nobl'
-
+" }}}
+" Formatting {{{
 " ==============================================================================
-" FORMATTING
-" See https://vim.fandom.com/wiki/Indenting_source_code:w
-" ==============================================================================
+" Maximum width of text that is being inserted and autowrapped (gq)
+set textwidth=80
 
-" set textwidth 
+" Minimal number of screen lines to keep above and below the cursor.
+set scrolloff=10
 
+" See https://vim.fandom.com/wiki/Indenting_source_code
 " Automatically add indentation when starting a new line
 set autoindent
 " Enable loading the indent file for specific file types
@@ -72,7 +73,7 @@ filetype indent on
 " If file type based indentation is not great try 'smartindent' and 'cindent'
 " Try to be smart about when/how to add indentation
 " set smartindent
-" Use C indenting rules 
+" Use C indenting rules
 " set cindent
 
 " Number of spaces that a <Tab> (default=8)
@@ -83,19 +84,19 @@ set softtabstop=4
 " Number of spaces to use for shifting (>>, <<) and aligning (==)
 set shiftwidth=4
 
-" ==============================================================================
-" DISPLAY
+" }}}
+" Interface {{{
 " ==============================================================================
 " Add line numbers in hybrid mode
 set number relativenumber
 " Toggle between hybrid and absolute line numbers in a smart way
-" see https://jeffkreeftmeijer.com/vim-number/ 
+" see https://jeffkreeftmeijer.com/vim-number/
 augroup numbertoggle
-  autocmd!
-  " Hybrid when focused on a buffer in normal mode
-  autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
-  " Absolute in insert mode or when not focused on the window
-  autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
+    autocmd!
+    " Hybrid when focused on a buffer in normal mode
+    autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
+    " Absolute in insert mode or when not focused on the window
+    autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 augroup END
 
 " Show partial commands in the last line of the screen
@@ -105,93 +106,102 @@ set showcmd
 " line of a window
 set ruler
 
+" Highlight the line with the cursor
+set cursorline
+
 " Set column to alternate color for max char per line reminder
 set colorcolumn=+1
 
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 
-" Code folding based on indentation
-highlight Folded ctermbg=234
-highlight Folded ctermfg=243
-augroup vimrc
-  au BufReadPre * setlocal foldmethod=indent
-  au BufWinEnter * if &fdm == 'indent' | setlocal foldmethod=manual | endif
-augroup END
+" Show select whitespace characters
+set listchars=lead:.,tab:-->
+set list
 
-" ==============================================================================
-" AESTHETIC
+" Code folding
+set foldenable
+set foldnestmax=10
+set foldmethod=indent
+set foldlevelstart=1
+
+" }}}
+" Color {{{
 " ==============================================================================
 " Enable syntax highlighting
-syntax on
+syntax enable
 
-" Set Color Mode
-"  - Color Options : blue, darkblue, default, delek, desert, elflord, evening, 
-" koehler, morning, murphy, pablo, peachpuff, ron, shine, slate, torte, zellner
-set t_Co=256
+" Set the default shell type when vim is unable to infer
+let g:is_bash = 1
+
+" Set background color to dark mode
+" Most colorschemes have a light and dark mode
 set background=dark
-" Install cool color schemes with cmd below: 
-" colorscheme sceaduhelm
-colorscheme jellybeans
+
+" Set color scheme
+colorscheme gruvbox
+" colorscheme jellybeans
+" colorscheme codedark
+
+" Set color terminal (cterm) colors for highlight-groups
+" No background for normal text
 highlight Normal ctermbg=NONE
-highlight nonText ctermbg=NONE
-
-" Turn on visual highlighting
+" No background for implied vim characters not actually in the text
+highlight NonText ctermbg=NONE
+" Reverse fg and bg colors when highlighting. No added background color
 highlight Visual cterm=reverse ctermbg=NONE
+" Set the bg and fg colors of folds to a dark grey
+highlight Folded ctermbg=234 ctermfg=243
+" Set the cursorline highlight to a dark color that is not distracting
+highlight CursorLine ctermbg=233
 
-" ==============================================================================
-" ALIASES and MACROS
-" ==============================================================================
-let mapleader = " "
+" }}}
+" Custom functions {{{
+function! TrimTrailingWhitespace()
+    " See https://vim.fandom.com/wiki/Remove_unwanted_spaces
+    " Save last search term
+    let _s=@/
+    " Save last cursor position
+    let l = line(".")
+    let c = col(".")
+    " Trim trailing whitespace
+    %s/\s\+$//e
+    " Reset search term
+    let @/=_s
+    " Reset cursor position
+    call cursor(l, c)
+endfunction
 
-nnoremap <leader>noh :noh<CR>
-
-nnoremap n nzz
-nnoremap N Nzz
-
-nnoremap <leader>b :ls<CR>:buffer<Space>
-
-if executable('Lexplore')
-    "Toggle explorer
-    nnoremap <leader>e :Lexplore<CR>
-else
-    nnoremap <leader>e :Texplore<CR>
-endif
-nnoremap <leader>te :Texplore<CR>
-
-" Toggle paste mode to avoid any autoformatting effects (e.g. indentation)
-set pastetoggle=<F10>
-
-"-------------------------------------------------------------------------------
-" Tab complete
-" https://vim.fandom.com/wiki/Smart_mapping_for_tab_completion
 function! Smart_TabComplete()
-    let line = getline('.')                         " current line
+    " See https://vim.fandom.com/wiki/Smart_mapping_for_tab_completion
+    " Get text of current line
+    let line = getline('.')
     " from the start of the current line to one character right of the cursor
-    let substr = strpart(line, -1, col('.')+1)      
-    let substr = matchstr(substr, "[^ \t]*$")       " word till cursor
-    if (strlen(substr)==0)                          " nothing to match on empty string
-	return "\<TAB>"
+    let substr = strpart(line, -1, col('.')+1)
+    " word till cursor
+    let substr = matchstr(substr, "[^ \t]*$")
+    if (strlen(substr)==0)
+        " nothing to match on empty string
+        return "\<Tab>"
     endif
-    let has_period = match(substr, '\.') != -1      " position of period, if any
-    let has_slash = match(substr, '\/') != -1       " position of slash, if any
+    " position of period, if any
+    let has_period = match(substr, '\.') != -1
+    " position of slash, if any
+    let has_slash = match(substr, '\/') != -1
     if (!has_period && !has_slash)
-	return "\<C-x>\<C-p>"                         " existing text matching
+        " existing text matching
+        return "\<C-x>\<C-p>"
     elseif ( has_slash )
-	return "\<C-x>\<C-f>"                         " file matching
+        " file matching
+        return "\<C-x>\<C-f>"
     else
-	return "\<C-x>\<C-o>"                         " plugin matching
+        " plugin matching
+        return "\<C-x>\<C-o>"
     endif
 endfunction
-inoremap <TAB> <C-r>=Smart_TabComplete()<CR>
 
-"-------------------------------------------------------------------------------
-" Simulate smooth scrolling
-" See https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
-"nmap <C-u> <C-u>zz
-"nmap <C-d> <C-d>zz
-set scroll=28
-function SmoothScroll(up)
+function! SmoothScroll(up)
+    " See https://stackoverflow.com/questions/4064651/what-is-the-best-way-to-do-smooth-scrolling-in-vim
     if a:up
         let scrollaction="\<C-y>"
     else
@@ -207,9 +217,96 @@ function SmoothScroll(up)
         exec "normal " . scrollaction
     endwhile
 endfunction
-" Add shortcut for normal and insert mode
+
+" }}}
+" Aliases and Macros {{{
+" ==============================================================================
+let mapleader = " "
+
+" Move vertically by display lines instead of actual lines
+nnoremap j gj
+nnoremap k gk
+
+" Keep cursor in same location when joining lines
+nnoremap J mzJ`z
+
+" Turn off highlighting
+nnoremap <leader>noh :noh<CR>
+
+" Keep search results centered
+nnoremap n nzz
+nnoremap N Nzz
+
+" List buffer then prompt for buffer selection
+nnoremap <leader>b :ls<CR>:buffer<Space>
+
+" Shift lines up and down (just delete and yank)
+" nnoremap <C-j> :m .+1<CR>==
+" nnoremap <C-k> :m .-2<CR>==
+" inoremap <C-j> <Esc>:m .+1<CR>==gi
+" inoremap <C-k> <Esc>:m .-2<CR>==gi
+" vnoremap <C-j> :m '>+1<CR>gv=gv
+" vnoremap <C-k> :m '<-2<CR>gv=gv
+
+" Open netrw explorers from the directory of the current file
+nnoremap <leader>e :Explore<CR>
+nnoremap <leader>he :50Hexplore<CR>
+nnoremap <leader>se :50Sexplore<CR>
+nnoremap <leader>ve :50Vexplore!<CR>
+nnoremap <leader>te :Texplore <CR>
+" Left explorer [:Lex] in Vim 8+:
+" - Toggles explorer open and closed instead of opening up multiple explorers
+" - Opens to current directory, not current file's directory
+" - Opens new window into previously current buffer (i.e. window#2)
+" - Creates new files in current directory instead of netrw directory
+nnoremap <leader>le :Lexplore <CR>
+
+" Toggle paste mode to avoid any autoformatting effects (e.g. indentation)
+set pastetoggle=<F10>
+
+" Trim trailing whitespace
+nnoremap <F5> :call TrimTrailingWhitespace()<CR>
+
+" Tab complete
+if !has('nvim')
+    " Neovim uses better tab complete so don't overwrite
+    inoremap <Tab> <C-r>=Smart_TabComplete()<CR>
+endif
+
+" Simulate smooth scrolling
 nnoremap <C-u> :call SmoothScroll(1)<Enter>
 nnoremap <C-d> :call SmoothScroll(0)<Enter>
-inoremap <C-u> <Esc>:call SmoothScroll(1)<Enter>i
-inoremap <C-d> <Esc>:call SmoothScroll(0)<Enter>i
 
+" }}}
+" Plugins {{{
+" ==============================================================================
+" Netrw file explorer (built-in but technically a plugin)
+" Disable banner
+let g:netrw_banner = 0
+" Listing style (i.e. how the files are listed)
+let g:netrw_liststyle = 0
+" Window size
+let g:netrw_winsize = 20
+" Behavior when selecting a file (default 0)
+let g:netrw_browse_split = 0
+" Keep vim's current directory the same as netrw's browsing directory.
+" Otherwise, '%' creates files in the folder vim is started in
+" let g:netrw_keepdir = 0
+" Buffer settings (default = noma nomod nonu nowrap ro nobl
+let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
+
+" Tabular plugin
+noremap <leader>= :Tabularize<Space>/
+
+" TODO
+" New text objects:
+" - Line
+" - Camel case words: CamelCaseMotion
+" - Function arguments: argtextobj
+" - Underscore separated words:
+
+" }}}
+" Modeline {{{
+" modeline for configuring just this file
+" vim:foldmethod=marker:foldlevel=0
+" }}}

@@ -59,7 +59,7 @@ alias ll='ls -FGlAhp'
  # Tally up occurances in output
 alias tally='sort | uniq -c | sort -rn'
 # Disk usage of folders/files in pwd
-alias dupwd="du -h -d 0 .* *.* */ | sort -hr"
+alias dupwd="du -a -h -d 1 | sort -hr"
 
 
 ################################################################################

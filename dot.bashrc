@@ -32,7 +32,7 @@ fi
 # FreeBSD and MacOSX uses CLICOLOR and LSCOLOR. Linux uses LS_COLOR
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad # Dark color scheme
-if command -v dircolors; then
+if command -v dircolors &> /dev/null; then
     eval $(dircolors ~/LexEnv/dircolors/dircolors.ansi-universal)
 fi
 #export LS_COLORS=
@@ -61,6 +61,8 @@ GIT_PS1_SHOWCOLORHINTS=true
 # See PROMPTING in `man bash`
 function prompt_command() {
     # Set variables each time a prompt (PS1) is about to be generated
+
+    # Set separator color based on success of previous command
     if [ $? -eq 0 ]; then
         fmt_color="$fmt_green"
     else

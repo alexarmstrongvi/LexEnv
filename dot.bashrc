@@ -37,7 +37,7 @@ if command -v dircolors &> /dev/null; then
 fi
 #export LS_COLORS=
 # - 'grep'
-export GREP_OPTIONS='--color=auto'
+export GREP_OPTIONS='--color=auto --binary-files=without-match'
 
 # Load and configure git prompt utils
 # See https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh

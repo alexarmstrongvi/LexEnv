@@ -8,7 +8,7 @@ fi
 # export SYSTEMD_PAGER=
 
 # Update PATH
-export PATH="${PATH}:${HOME}/local/bin"
+PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 # Load modules
 module load git vim anaconda

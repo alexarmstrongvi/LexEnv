@@ -9,14 +9,7 @@ Feel free to pick and choose which elements are needed for your particular use c
 ```bash
 cd ${HOME}
 git clone git@github.com:alexarmstrongvi/LexEnv.git
-git clone git@github.com:alexarmstrongvi/LexTools.git
-ln -s ${HOME}/LexEnv/dot.bash_profile .bash_profile
-ln -s ${HOME}/LexEnv/dot.zprofile .zprofile
-ln -s ${HOME}/LexEnv/dot.vimrc .vimrc 
-ln -s ${HOME}/LexEnv/dot.gitignore .gitignore
-ln -s ${HOME}/LexEnv/dot.tmux.conf .tmux.conf
-ln -s ${HOME}/LexEnv/dot.vim .vim
-ln -s ${HOME}/LexEnv/dot.condarc .condarc
+for f in LexEnv/dot.*; do bn=$(basename $f); ln -s $f ${bn#dot}; done
 ```
 Special cases  
 * `local_bash_profile.sh` - contains any site specific configurations. Add a symlink inside `LexEnv/` called `local_bash_profile.sh` that points to any a .sh file and it will be picked up by [`dot.bash_profile`](dot.bash_profile)

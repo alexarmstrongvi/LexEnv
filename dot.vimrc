@@ -56,6 +56,8 @@ set showmatch
 " Note that this can be slow for large directory structures (e.g ~/)
 set path+=**
 
+" File type configurations
+autocmd FileType python compiler pylint
 " }}}
 " Formatting {{{
 " ==============================================================================

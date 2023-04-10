@@ -22,9 +22,8 @@ UNIX_STD_DIRS = (
 )
 
 # Type aliases
-DirMap =  dict[str, Any]
+DirMap =  str | dict[str, Any]
 MapFunc = Callable[[Path, str], DirMap]
-
 def main():
     drive = apply_map(Path('/'), map_root)
     #ostr = pprint.pformat(drive, indent=2, width=1000, compact=False)
@@ -34,6 +33,7 @@ def main():
 ################################################################################
 # Directory specific mapping functions
 def map_root(path: Path, pname: str) -> DirMap:
+    '''Map the root directory of a mac'''
     #############################
     # UNIX folders
     # see https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard
@@ -231,7 +231,7 @@ def map_homebrew(path: Path, pname: str) -> DirMap:
 
 ################################################################################
 # Helper functions
-def ls(path: Path) -> list[str]:
+def ls(path: Path) -> DirMap:
     pname = to_str(path)
     if is_file(path) or path.is_symlink():
         return pname
@@ -269,7 +269,7 @@ def is_file(path: Path):
     except PermissionError:
         return True
 
-def apply_map(top_path: Path, map_func: MapFunc):
+def apply_map(top_path: Path, map_func: MapFunc) -> DirMap:
     folder = []
     for path in iterdir(top_path):
         pname = to_str(path)

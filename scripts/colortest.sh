@@ -1,6 +1,25 @@
 ################################################################################
 # Demo of shell colors with ANSI escape sequences
 ################################################################################
+# Key ideas behind colors in terminal emulators
+# - The color seen results from the interaction of text input, terminal emulator
+#   displaying the text, and the monitor on which the output text is displayed
+# - Color is encoded in input text via ANSI escape sequences in the input text 
+#   that is not shown in the output text 
+#     - e.g. \e[32m Colored Text # \e[0m
+#     - Color can be encoded with relative or absolute codes 
+#     - Relative codes - Some set of numbers (e.g. 0-7) that the user can map to
+#       any set of colors
+#     - Absolute codes - A range of numbers that indexes a discretized RGB
+#       spectrum. 8-bit allows for 256 colors while 24-bit allows >16 million.
+# - Not all emulators have the same relative number mappings
+# - Not all emulators support 24-bit colors
+# - Some utilties run in an emulator (e.g. vim) may default to using a color
+#   encoding not supported by the emulator and may not be easily configured to
+#   work with your emulator. Getting an emulator that supports the utilities you
+#   want to use is important
+
+# - ANSI escape syntax
 # Template: "\e[X;Y;...;Zm"
 # Examples
 # - "\e[32m Text \e[0m"
@@ -16,8 +35,33 @@
 # - https://en.wikipedia.org/wiki/ANSI_escape_code - see "SGR" section"
 # - https://www.shellhacks.com/bash-colors/
 # - https://unix.stackexchange.com/questions/274453/is-there-any-objective-benefit-to-escape-sequences-over-tput
+# - https://jeffkreeftmeijer.com/vim-16-color/
 ################################################################################
-echo "256-bit Color Palette"
+echo "     TERM = '${TERM-<UNSET>}'"
+# True color usually has this set to "truecolors" or "24-bit"
+echo "COLORTERM = '${COLORTERM-<UNSET>}'"
+echo
+
+################################################################################
+echo '24-bit Color Palette (True Colors)'
+s="/\\/\\/\\/\\/\\"
+s="$s $s $s $s $s $s $s $s"
+for colnum in {0..76}; do
+    r=$((255-(colnum*255/76)))
+    g=$((colnum*510/76))
+    b=$((colnum*255/76))
+    if [ $g -ge 255  ]; then 
+        g=$((510-g))
+    fi
+    printf "\033[48;2;%d;%d;%dm" "$r" "$g" "$b"
+    printf "\033[38;2;%d;%d;%dm" $((255-r)) $((255-g)) $((255-b))
+    printf "%s\033[0m" ${s:$(($colnum+1)):1};
+done
+printf "\n";
+echo
+
+################################################################################
+echo "256 Color Palette"
 for i in {0..255} ; do
     printf "\x1b[48;5;%sm%3d\e[0m " "$i" "$i"
     if (( i == 15 )) || (( i > 15 )) && (( (i-15) % 36 == 0 )); then

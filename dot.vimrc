@@ -263,6 +263,15 @@ nnoremap <leader>te :Texplore <CR>
 " - Creates new files in current directory instead of netrw directory
 nnoremap <leader>le :Lexplore <CR>
 
+nnoremap <leader>co :copen<CR>
+nnoremap <leader>cnn :cnext<CR>
+nnoremap <leader>cpp :cprevious<CR>
+nnoremap <leader>cnf :cnext<CR>
+nnoremap <leader>cpf :cprevious<CR>
+
+" Swap word under cursor with next word, preserving any characters between them
+nnoremap >w :s/\(\w*\)\%#\(\w\+\)\([^0-9A-Za-z_]\+\)\(\w\+\)/\4\3\1\2/<CR><C-o>h
+
 " Toggle paste mode to avoid any autoformatting effects (e.g. indentation)
 set pastetoggle=<F10>
 

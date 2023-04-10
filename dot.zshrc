@@ -20,5 +20,13 @@ PROMPT='%F{$([ $? = 0 ] && echo green || echo red)}_____________________________
 |%B%d%b $(git_super_status)
 | => '
 
+# Plugins
+if [ -d ${HOME}/LexEnv/dot.zsh/zsh-autosuggestions ]; then
+    source ~/LexEnv/dot.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+# if [ -d ${HOME}/LexEnv/dot.zsh/zsh-autocomplete ]; then
+#     source ~/LexEnv/dot.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+# fi
+
 ################################################################################
 print_success "== Completed running .zshrc =="

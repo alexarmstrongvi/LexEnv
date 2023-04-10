@@ -2,6 +2,8 @@
 #       .gitconfig file using the syntax 'path = /path/to/file'. It will
 #       be silently ignored otherwise.
 
+[init]
+    defaultBranch = main
 [color]
     diff = auto
     status = auto

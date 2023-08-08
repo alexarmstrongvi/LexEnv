@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 from pathlib import Path
-import pprint
 import json
 from typing import Callable, Any
 
@@ -20,9 +19,8 @@ UNIX_STD_DIRS = (
         'var',     #
         'tmp',     # Temporary files often cleared during reboot
 )
-
 # Type aliases
-DirMap =  str | dict[str, Any]
+DirMap =  str | list[Any] | dict[str, Any]
 MapFunc = Callable[[Path, str], DirMap]
 def main():
     drive = apply_map(Path('/'), map_root)
@@ -270,6 +268,7 @@ def is_file(path: Path):
         return True
 
 def apply_map(top_path: Path, map_func: MapFunc) -> DirMap:
+    '''Build directory map, applying mapping function to any folders'''
     folder = []
     for path in iterdir(top_path):
         pname = to_str(path)

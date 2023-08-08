@@ -1,0 +1,6 @@
+-- Workaround for issue with :Texplore in NeoVim
+-- Opening a file from :Tabexplore gives the following error:
+    -- Error detected while processing function <SNR>55_NetrwBrowseChgDir:
+    -- line  172:
+    -- E471: Argument required: keepj keepalt 2wincmd 1
+-- vim.keymap.set('n', '<leader>te', ':tabnew<CR>:Lexplore<CR>')

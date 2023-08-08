@@ -13,9 +13,6 @@ filetype on
 " see ${VIMRUNTIME}/ftplugin/
 filetype plugin on
 
-" Save all .swp files to single directory instead of alongside file
-set directory^=$HOME/LexEnv/.vim/swapfiles//"
-
 " }}}
 " Feature configuration {{{
 " ==============================================================================
@@ -40,7 +37,7 @@ set wildmode=longest,list,full
 " Operate in enhanced mode (i.e. pop up menu)
 set wildmenu
 
-" Turn on search highlighting
+" Search highlighting persists until manually disabled
 set hlsearch
 " Turn on incremental highlighting
 set incsearch
@@ -51,13 +48,16 @@ set showmatch
 " Allow backspace to delete autoindent
 " set backspace=indent
 
+" Do not save buffer into swap files
+" set noswapfile
+
 " Add all folders in the startup folder to path
 " Allows for fuzzy-matching with :find
 " Note that this can be slow for large directory structures (e.g ~/)
 set path+=**
 
 " File type configurations
-autocmd FileType python compiler pylint
+" autocmd FileType python compiler pylint
 " }}}
 " Formatting {{{
 " ==============================================================================
@@ -78,10 +78,13 @@ filetype indent on
 " Use C indenting rules
 " set cindent
 
+" Expand tab into spaces when pressing <Tab>
+set expandtab
 " Number of spaces that a <Tab> (default=8)
+" Set either tabstop or softtabstop but not both
+" see ":help tabstop" for chooing between tabstop and softtabstop
 " set tabstop=8
 " Use 'softtabstop' number of spaces when pressing <Tab>
-set expandtab
 set softtabstop=4
 " Number of spaces to use for shifting (>>, <<) and aligning (==)
 set shiftwidth=4
@@ -133,6 +136,11 @@ set foldlevelstart=1
 " Enable syntax highlighting
 syntax enable
 
+" Enables 24-bit RGB color in the TUI
+" Note: Messes up colors on terminal emulators and multiplexers that don't
+" support true colors
+set termguicolors
+
 " Set the default shell type when vim is unable to infer
 let g:is_bash = 1
 
@@ -159,6 +167,7 @@ highlight CursorLine ctermbg=233
 
 " }}}
 " Custom functions {{{
+" ==============================================================================
 function! TrimTrailingWhitespace()
     " See https://vim.fandom.com/wiki/Remove_unwanted_spaces
     " Save last search term
@@ -250,12 +259,33 @@ nnoremap <leader>b :ls<CR>:buffer<Space>
 " vnoremap <C-j> :m '>+1<CR>gv=gv
 " vnoremap <C-k> :m '<-2<CR>gv=gv
 
+" :help registers
+" There are ten types of registers:
+" 1. The unnamed register             ""
+" 2. 10 numbered registers            "0 to "9
+" 3. The small delete register        "-
+" 4. 26 named registers               "a to "z or "A to "Z
+" 5. Three read-only registers        ":, "., "%
+" 6. Alternate buffer register        "#
+" 7. The expression register          "=
+" 8. The selection and drop registers "*, "+ and "~ 
+" 9. The black hole register          "_
+" 10. Last search pattern register    "/
+
+" Paste over word, keeping pasted word in ". register
+nnoremap <leader>dp "_diwP
+
+" Copy to system clipboard ("y)
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+
 " Open netrw explorers from the directory of the current file
 nnoremap <leader>e :Explore<CR>
 nnoremap <leader>he :50Hexplore<CR>
 nnoremap <leader>se :50Sexplore<CR>
 nnoremap <leader>ve :50Vexplore!<CR>
-nnoremap <leader>te :Texplore <CR>
+nnoremap <leader>te :Texplore<CR>
+nnoremap <leader>re :Rexplore<CR>
 " Left explorer [:Lex] in Vim 8+:
 " - Toggles explorer open and closed instead of opening up multiple explorers
 " - Opens to current directory, not current file's directory
@@ -263,6 +293,7 @@ nnoremap <leader>te :Texplore <CR>
 " - Creates new files in current directory instead of netrw directory
 nnoremap <leader>le :Lexplore <CR>
 
+" Quickfix list
 nnoremap <leader>co :copen<CR>
 nnoremap <leader>cnn :cnext<CR>
 nnoremap <leader>cpp :cprevious<CR>
@@ -302,7 +333,7 @@ let g:netrw_winsize = 20
 let g:netrw_browse_split = 0
 " Keep vim's current directory the same as netrw's browsing directory.
 " Otherwise, '%' creates files in the folder vim is started in
-" let g:netrw_keepdir = 0
+let g:netrw_keepdir = 0
 " Buffer settings (default = noma nomod nonu nowrap ro nobl
 let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
 

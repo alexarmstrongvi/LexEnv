@@ -3,9 +3,12 @@
 ################################################################################
 # Set PATH, MANPATH, etc., for Homebrew.
 eval "$(/opt/homebrew/bin/brew shellenv)"
+PATH="${PATH}:${HOME}/.local/bin"
+PATH="${PATH}:${HOME}/.ghcup/bin" # Haskell GHCup (not managed by homebrew)
+export PATH
 
-# Preferred binaries
-export PATH="/opt/homebrew/bin/screen:$PATH"
+# Add GitHub ssh key
+ssh-add ~/.ssh/id_ed25519_github
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

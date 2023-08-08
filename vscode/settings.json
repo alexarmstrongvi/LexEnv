@@ -1,29 +1,38 @@
 {
-    "workbench.colorTheme": "Default Dark+",
-    "workbench.startupEditor": "none",
-
-    "notebook.lineNumbers": "on",
-    
+    // Text Editor
     "editor.renderWhitespace": "all",
     "editor.lineNumbers": "relative",
     "editor.rulers": [
         80,
         100
     ],
-    
+    "editor.formatOnType": true,
+    // Workbench
+    "workbench.colorTheme": "Default Dark+",
+    "workbench.startupEditor": "none",
+    // Features - Notebook
+    "notebook.lineNumbers": "on",
+    ////////////////////////////////////////////////////////////////////////////
+    // Extensions 
+    ////////////////////////////////////////////////////////////////////////////
+    // Git
+    "git.autofetch": true,
+    // Vim
+    "vim.smartRelativeLine": true,
+    "vim.vimrc.enable": true,
+    // Python
+    "python.linting.pylintEnabled": true,
+    //"python.linting.mypyEnabled": true,
+    "python.analysis.typeCheckingMode": "basic",
+    "python.formatting.provider": "autopep8",
+    // Julia
     "terminal.integrated.commandsToSkipShell": [
-        "language-julia.interrupt"
+        "language-julia.interrupt",
     ],
     "julia.enableTelemetry": true,
     "julia.symbolCacheDownload": true,
     "julia.executablePath": "/opt/homebrew/bin/julia",
     "julia.enableCrashReporter": true,
-    
-    "git.autofetch": true,
-   
-    "[python]": {
-        "editor.formatOnType": true
-    },
-    
-    "vim.smartRelativeLine": true
+    "editor.minimap.enabled": false,
+    "git.openRepositoryInParentFolders": "never",
 }

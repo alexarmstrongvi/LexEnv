@@ -32,6 +32,7 @@
 # - End with '0' to turn all attributes off
 #
 # References
+# - https://github.com/termstandard/colors
 # - https://en.wikipedia.org/wiki/ANSI_escape_code - see "SGR" section"
 # - https://www.shellhacks.com/bash-colors/
 # - https://unix.stackexchange.com/questions/274453/is-there-any-objective-benefit-to-escape-sequences-over-tput
@@ -43,7 +44,7 @@ echo "COLORTERM = '${COLORTERM-<UNSET>}'"
 echo
 
 ################################################################################
-echo '24-bit Color Palette (True Colors)'
+echo '24-bit (True) Color Palette'
 s="/\\/\\/\\/\\/\\"
 s="$s $s $s $s $s $s $s $s"
 for colnum in {0..76}; do
@@ -72,7 +73,7 @@ echo
 
 ########################################
 echo
-echo "8-bit Color Palette SGR parameters"
+echo "16 (ANSI escape code) Color Palette"
 fg_colors=( "" 30 31 32 33 34 35 36 37) # 39 = default
 bg_colors=( ""    41 42 43 44 45 46 47) # 49 = default
 echo 'Font (row) and background (column) color'

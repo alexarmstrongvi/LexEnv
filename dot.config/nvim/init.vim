@@ -1,8 +1,8 @@
-" Share configuration from vim
+"  Share configuration from vim
 " See https://neovim.io/doc/user/nvim.html#nvim-from-vim
 echom "Autoloading init.vim"
 set runtimepath^=~/.vim
-" set runtimepath^=~/.vim/after
+" set runtimepath^=~/.vim/after " Causing NVIM crash
 let &packpath=&runtimepath
 source ~/.vimrc
 

@@ -18,7 +18,7 @@ pushd $DOTFILES_PATH > /dev/null
 ########################################
 if [ -d $HOME/.local ]; then
     local_paths="$(find dotfiles/.local/bin -type f)"
-    local_paths="${local_paths} $(find dotfiles/.local/lib --maxdepth 1 type f)"
+    local_paths="${local_paths} $(find dotfiles/.local/lib -maxdepth 1 -type f)"
     local_paths="${local_paths} $(find dotfiles/.local -maxdepth 2 -mindepth 2 -type d)"
     for file in $local_paths; do
         target_path="$HOME/${file##dotfiles/}"
@@ -36,9 +36,10 @@ mkdir -p vim/swapfiles vim/undodir vim/backupdir 2> /dev/null
 popd > /dev/null
 
 # Update ~/.gitconfig
-if [ -f $HOME/.gitconfig ] && ! grep -q "$DOTFILES_PATH" $HOME/.gitconfig; then
+cfg=$HOME/gitconfig
+if [ -f $cfg ] && [ ! -L $cfg ] && ! grep -q "$DOTFILES_PATH" $cfg; then
     include_str="[include]\n    path = ${DOTFILES_PATH}/dotfiles/git/.gitconfig" 
-    echo -e "$include_str" >> $HOME/.gitconfig
+    echo -e "$include_str" >> $cfg
 fi
 
 ########################################

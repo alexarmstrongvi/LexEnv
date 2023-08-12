@@ -1,0 +1,71 @@
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/core"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
+# Cross-platform make
+brew "cmake"
+# Reimplementation of ctags(1)
+brew "ctags"
+# Generate documentation for several programming languages
+brew "doxygen"
+# Simple, fast and user-friendly alternative to find
+brew "fd"
+# Graph visualization software from AT&T and Bell Labs
+brew "graphviz"
+# Fast, Dynamic Programming Language
+brew "julia"
+# LLVM's OpenMP runtime library
+brew "libomp"
+# Ambitious Vim-fork focused on extensibility and agility
+brew "neovim"
+# Platform built on V8 to build network applications
+brew "node"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.11"
+# Interpreted, interactive, object-oriented programming language
+brew "python@3.9"
+# Search tool like grep and The Silver Searcher
+brew "ripgrep"
+# Safe, concurrent, practical language
+brew "rust"
+# Terminal multiplexer with VT100/ANSI terminal emulation
+brew "screen"
+# Terminal multiplexer
+brew "tmux"
+# Display directories as trees (with optional color/HTML output)
+brew "tree"
+# Vi 'workalike' with many additional features
+brew "vim"
+# Desktop client for Android Messages
+cask "android-messages"
+# Compact TeX distribution as alternative to the full TeX Live / MacTeX
+cask "basictex"
+# Web browser focusing on privacy
+cask "brave-browser"
+# Voice and text chat software
+cask "discord"
+# Client for the Google Drive storage service
+cask "google-drive"
+# Terminal emulator as alternative to Apple's Terminal app
+cask "iterm2"
+# Interface for reading and syncing eBooks
+cask "kindle"
+# Minimal installer for conda
+cask "miniconda"
+# Note-taking tool for networked thought
+cask "roam-research"
+# Music streaming service
+cask "spotify"
+# Scientific Python IDE
+cask "spyder"
+# Video game digital distribution service
+cask "steam"
+# To-do list
+cask "todoist"
+# Open-source code editor
+cask "visual-studio-code"
+# Desktop client for WhatsApp
+cask "whatsapp"
+# Video communication and virtual meeting platform
+cask "zoom"

@@ -2,16 +2,17 @@
 ################################################################################
 # Configure interactive login bash shells
 ################################################################################
-source ~/LexEnv/bash_utils.sh
+source $HOME/.local/lib/bash_utils.sh
 # Include interactive non-login shell configurations
 if is_interactive_shell && [ -f ~/.bashrc ]; then
     . ~/.bashrc
 fi
 
 # Site specific configuration
-if [ -f ~/LexEnv/local_bash_profile.sh ]; then
+local_bash_profile_path=$HOME/.local/bin/local_bash_profile.sh 
+if [ -f $local_bash_profile_path ]; then
     # Add symlink to include local profile (keep name convention below)
-    source ~/LexEnv/local_bash_profile.sh;
+    source $local_bash_profile_path
 fi
 
 print_success "== Completed running .bash_profile =="

@@ -1,0 +1,76 @@
+#!/usr/bin/env bash
+# TODO: Handle realpath command not existing
+DOTFILES_PATH="$(realpath ${BASH_SOURCE[0]} | xargs dirname)"
+if [ ! -d "$DOTFILES_PATH" ]; then
+    echo "Unable to locate dotfiles path"
+    exit 1
+fi
+export DOTFILES_PATH
+
+echo "Installing dotfiles from $DOTFILES_PATH"
+################################################################################
+# Symlink to dotfiles
+################################################################################
+pushd $DOTFILES_PATH > /dev/null
+
+########################################
+# Configure ~/.local
+########################################
+if [ -d $HOME/.local ]; then
+    local_paths="$(find dotfiles/.local/bin -type f)"
+    local_paths="${local_paths} $(find dotfiles/.local/lib -type f -maxdepth 1)"
+    local_paths="${local_paths} $(find dotfiles/.local -type d -maxdepth 2 -mindepth 2)"
+    for file in $local_paths; do
+        target_path="$HOME/${file##dotfiles/}"
+        echo -e "Creating symlink: $target_path"
+        ln -s -f $DOTFILES_PATH/$file $target_path
+    done
+else
+    ln -s $DOTFILES_PATH/.local $HOME/.local
+fi
+
+# Require expected tmp directories
+mkdir $HOME/.local/tmp 2> /dev/null
+pushd $HOME/.local/tmp > /dev/null
+mkdir -p vim/swapfiles vim/undodir vim/backupdir 2> /dev/null
+popd > /dev/null
+
+# Update ~/.gitconfig
+if [ -f $HOME/.gitconfig ] && ! grep -q "$DOTFILES_PATH" $HOME/.gitconfig; then
+    include_str="[include]\n    path = ${DOTFILES_PATH}/dotfiles/git/.gitconfig" 
+    echo -e "$include_str" >> $HOME/.gitconfig
+fi
+
+########################################
+# Symlink remaining dotfiles
+########################################
+dotfiles=$(find dotfiles -name '\.*' -maxdepth 2)
+for dotfile in $dotfiles; do
+    target_path="$HOME/$(basename $dotfile)"
+    
+    if [ -d $target_path ] && [ ! -L $target_path ]; then
+        echo "Directory exists: $target_path [Skipping]"
+        continue
+    elif [ -f $target_path ] && [ ! -L $target_path ]; then
+        echo "File exists: $target_path [Skipping]"
+        # TODO: mv $target_path ${target_path}-backup
+        continue
+    fi
+    
+    # Check if valid symolic link already exists
+    # if [ -L $target_path ] && [ -e $target_path ]; then
+    #     echo "WARNING :: Symbolic link exists: $target_path -> $(realpath $target_path)"
+    # fi
+    echo -e "Creating symlink: $target_path"
+    ln -s -f $DOTFILES_PATH/$dotfile $target_path
+done
+popd > /dev/null
+
+# TODO: Use GNU Stow
+# if command -v stow > dev/null; then
+#     for folder in ${STOW_FOLDERS[@]}; do
+#         echo "stow $folder"
+#         # stow -D $folder
+#         # stow $folder
+#     done
+# fi

@@ -48,8 +48,17 @@ set showmatch
 " Allow backspace to delete autoindent
 " set backspace=indent
 
-" Do not save buffer into swap files
+" Set directory for swap files
 " set noswapfile
+set directory=~/.local/tmp/vim/swapfiles//,.
+
+" Enable and set directory for undo files
+set undofile
+set undodir=~/.local/tmp/vim/undodir//
+
+" Enable and set directory for backup files (
+set backup
+set backupdir=~/.local/tmp/vim/backupdir//
 
 " Add all folders in the startup folder to path
 " Allows for fuzzy-matching with :find
@@ -336,6 +345,8 @@ let g:netrw_browse_split = 0
 let g:netrw_keepdir = 0
 " Buffer settings (default = noma nomod nonu nowrap ro nobl
 let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
+" Set location of netrw cache files (e.g. .netrwhist)
+let g:netrw_home = '~/.local/tmp/vim'
 
 " Tabular plugin
 noremap <leader>= :Tabularize<Space>/

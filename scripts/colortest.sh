@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 ################################################################################
 # Demo of shell colors with ANSI escape sequences
 ################################################################################
@@ -38,6 +39,7 @@
 # - https://unix.stackexchange.com/questions/274453/is-there-any-objective-benefit-to-escape-sequences-over-tput
 # - https://jeffkreeftmeijer.com/vim-16-color/
 ################################################################################
+
 echo "     TERM = '${TERM-<UNSET>}'"
 # True color usually has this set to "truecolors" or "24-bit"
 echo "COLORTERM = '${COLORTERM-<UNSET>}'"

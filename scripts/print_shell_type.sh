@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-source ~/LexEnv/bash_utils.sh
+source ~/.local/lib/bash_utils.sh
 print_shell_type
 
 # To demo all types of shells, open a terminal emulator and follow steps below 

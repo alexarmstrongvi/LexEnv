@@ -1,18 +1,18 @@
-[submodule "shell/zsh-git-prompt"]
-	path = shell/zsh-git-prompt
-	url = git@github.com:olivierverdier/zsh-git-prompt.git
-[submodule "dot.vim/pack/myplugins/start/tabular"]
-	path = dot.vim/pack/myplugins/start/tabular
-	url = https://github.com/godlygeek/tabular
-[submodule "dot.vim/pack/myplugins/start/vim-surround"]
-	path = dot.vim/pack/myplugins/start/vim-surround
-	url = https://github.com/tpope/vim-surround
-[submodule "dot.vim/pack/myplugins/start/vim-commentary"]
-	path = dot.vim/pack/myplugins/start/vim-commentary
-	url = https://github.com/tpope/vim-commentary
-[submodule "dot.vim/pack/myplugins/start/vim-repeat"]
-	path = dot.vim/pack/myplugins/start/vim-repeat
-	url = https://github.com/tpope/vim-repeat
-[submodule "dot.vim/pack/myplugins/opt/vim-airline"]
-	path = dot.vim/pack/myplugins/opt/vim-airline
+[submodule "dotfiles/vim/.vim/pack/myplugins/opt/vim-airline"]
+	path = dotfiles/vim/.vim/pack/myplugins/opt/vim-airline
 	url = git@github.com:vim-airline/vim-airline.git
+[submodule "dotfiles/vim/.vim/pack/myplugins/start/tabular"]
+	path = dotfiles/vim/.vim/pack/myplugins/start/tabular
+	url = https://github.com/godlygeek/tabular
+[submodule "dotfiles/vim/.vim/pack/myplugins/start/vim-surround"]
+	path = dotfiles/vim/.vim/pack/myplugins/start/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "dotfiles/vim/.vim/pack/myplugins/start/vim-commentary"]
+	path = dotfiles/vim/.vim/pack/myplugins/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "dotfiles/vim/.vim/pack/myplugins/start/vim-repeat"]
+	path = dotfiles/vim/.vim/pack/myplugins/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "dotfiles/zshell/.zsh/zsh-git-prompt"]
+	path = dotfiles/zshell/.zsh/zsh-git-prompt
+	url = git@github.com:olivierverdier/zsh-git-prompt.git

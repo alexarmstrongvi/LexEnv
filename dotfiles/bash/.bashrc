@@ -5,7 +5,7 @@
 # ~/.bashrc is only sourced automatically in interactive non-login shells and so
 # should be sourced from ~/.bash_profile to effect interactive login shells
 ################################################################################
-source ~/LexEnv/bash_utils.sh
+source $HOME/.local/lib/bash_utils.sh
 if ! is_interactive_shell; then
     # Some programs (e.g. remote shells started by scp) may invoke .bashrc in a
     # non-interactive shell
@@ -17,12 +17,18 @@ fi
 # Enviornment conifguration
 
 # Set configuration file for non-interactive shells
-if [ -f ~/LexEnv/dot.bash_env ]; then
-    export BASH_ENV="~/LexEnv/dot.bash_env"
+if [ -f .bash_env ]; then
+    export BASH_ENV=".bash_env"
 fi
 
+# Update PATH
+export PATH=$HOME/.local/bin/:$PATH
+
 # Enable 256-color terminal
-if [ -e /usr/share/terminfo/*/xterm-256color ]; then
+if [ -n "$TMUX" ]; then
+    # 
+    export TERM='screen-256color'
+elif [ -e /usr/share/terminfo/*/xterm-256color ]; then
     # Tell programs the current terminal supports xterm's 256 color palette
     # Works even if current terminal is not xterm
     export TERM='xterm-256color'
@@ -33,7 +39,7 @@ fi
 export CLICOLOR=1
 export LSCOLORS=gxfxcxdxbxegedabagacad # Dark color scheme
 if command -v dircolors &> /dev/null; then
-    eval $(dircolors ~/LexEnv/dircolors/dircolors.ansi-universal)
+    eval $(dircolors $HOME/.local/share/dircolors/dircolors.ansi-universal)
 fi
 #export LS_COLORS=
 # - 'grep'
@@ -41,7 +47,7 @@ export GREP_OPTIONS='--color=auto --binary-files=without-match'
 
 # Load and configure git prompt utils
 # See https://github.com/git/git/blob/master/contrib/completion/git-prompt.sh
-source ${HOME}/LexEnv/shell/git-prompt.sh
+source $HOME/.local/bin/git-prompt.sh
 # Unstaged (*) and staged (+) changes will be shown next to the branch name
 GIT_PS1_SHOWDIRTYSTATE=true
 # Show '$' if there are stash entries
@@ -100,7 +106,7 @@ alias showPYPATH="tr ':' '\n' <<< \""'$PYTHONPATH'"\""
 # Print path to file
 pwdf() { echo $(cd $(dirname "$1") && pwd -P)/$(basename "$1"); }
 # Verbose ls
-alias ll='ls -FGlAhp'
+alias ll='ls -FGlAhpa'
  # Tally up occurances in output
 alias tally='sort | uniq -c | sort -rn'
 # Disk usage of folders/files in pwd
@@ -108,9 +114,10 @@ alias dupwd="du -a -h -d 1 | sort -hr"
 
 ################################################################################
 # Site specific configuration
-if [ -f ~/LexEnv/local_bashrc.sh ]; then
+local_bashrc_path=$HOME/.local/bin/local_bashrc.sh 
+if [ -f $local_bashrc_path ]; then
     # Add symlink to include local profile (keep name convention below)
-    source ~/LexEnv/local_bashrc.sh;
+    source $local_bashrc_path
 fi
 
 ################################################################################

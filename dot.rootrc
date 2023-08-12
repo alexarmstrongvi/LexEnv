@@ -1,5 +1,0 @@
-Unix.*.Root.DynamicPath:    .:$(ROOTSYS)/lib:$(HOME)/LexEnv/RootUtils
-Unix.*.Root.MacroPath:      .:$(HOME)/LexEnv/RootUtils:$(ROOTSYS)/macros
-Rint.Load:                  $(HOME)/LexEnv/RootUtils/rootalias.C
-Rint.Logon:                 $(HOME)/LexEnv/RootUtils/rootlogon.C
-Root.ShowPath: false

@@ -21,14 +21,19 @@ if [ -f .bash_env ]; then
     export BASH_ENV=".bash_env"
 fi
 
+# Make sure shell is set and exported
+if [ -z ${SHELL+x} ]; then
+    SHELL=/bin/bash
+fi
+export SHELL
+
 # Update PATH
 export PATH=$HOME/.local/bin/:$PATH
 
 # Enable 256-color terminal
 if [ -n "$TMUX" ]; then
-    # 
     export TERM='screen-256color'
-elif [ -e /usr/share/terminfo/*/xterm-256color ]; then
+elif
     # Tell programs the current terminal supports xterm's 256 color palette
     # Works even if current terminal is not xterm
     export TERM='xterm-256color'
@@ -114,7 +119,7 @@ alias dupwd="du -a -h -d 1 | sort -hr"
 
 ################################################################################
 # Site specific configuration
-local_bashrc_path=$HOME/.local/bin/local_bashrc.sh 
+local_bashrc_path=$HOME/.local/bin/local_bashrc.sh
 if [ -f $local_bashrc_path ]; then
     # Add symlink to include local profile (keep name convention below)
     source $local_bashrc_path

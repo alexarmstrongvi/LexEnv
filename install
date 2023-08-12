@@ -31,6 +31,7 @@ fi
 
 # Require expected tmp directories
 mkdir $HOME/.local/tmp 2> /dev/null
+sleep 0.001 # Wait for directory to be created or else pushd fails
 pushd $HOME/.local/tmp > /dev/null
 mkdir -p vim/swapfiles vim/undodir vim/backupdir 2> /dev/null
 popd > /dev/null
@@ -38,7 +39,7 @@ popd > /dev/null
 # Update ~/.gitconfig
 cfg=$HOME/gitconfig
 if [ -f $cfg ] && [ ! -L $cfg ] && ! grep -q "$DOTFILES_PATH" $cfg; then
-    include_str="[include]\n    path = ${DOTFILES_PATH}/dotfiles/git/.gitconfig" 
+    include_str="[include]\n    path = ${DOTFILES_PATH}/dotfiles/git/.gitconfig"
     echo -e "$include_str" >> $cfg
 fi
 
@@ -48,16 +49,15 @@ fi
 dotfiles=$(find dotfiles -maxdepth 2 -name '\.*' )
 for dotfile in $dotfiles; do
     target_path="$HOME/$(basename $dotfile)"
-    
+
     if [ -d $target_path ] && [ ! -L $target_path ]; then
         echo "Directory exists: $target_path [Skipping]"
         continue
     elif [ -f $target_path ] && [ ! -L $target_path ]; then
-        echo "File exists: $target_path [Skipping]"
-        # TODO: mv $target_path ${target_path}-backup
-        continue
+        echo "File exists: $target_path [Backing up]"
+        mv $target_path ${target_path}-backup
     fi
-    
+
     # Check if valid symolic link already exists
     # if [ -L $target_path ] && [ -e $target_path ]; then
     #     echo "WARNING :: Symbolic link exists: $target_path -> $(realpath $target_path)"

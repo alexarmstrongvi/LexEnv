@@ -18,8 +18,8 @@ pushd $DOTFILES_PATH > /dev/null
 ########################################
 if [ -d $HOME/.local ]; then
     local_paths="$(find dotfiles/.local/bin -type f)"
-    local_paths="${local_paths} $(find dotfiles/.local/lib -type f -maxdepth 1)"
-    local_paths="${local_paths} $(find dotfiles/.local -type d -maxdepth 2 -mindepth 2)"
+    local_paths="${local_paths} $(find dotfiles/.local/lib --maxdepth 1 type f)"
+    local_paths="${local_paths} $(find dotfiles/.local -maxdepth 2 -mindepth 2 -type d)"
     for file in $local_paths; do
         target_path="$HOME/${file##dotfiles/}"
         echo -e "Creating symlink: $target_path"
@@ -44,7 +44,7 @@ fi
 ########################################
 # Symlink remaining dotfiles
 ########################################
-dotfiles=$(find dotfiles -name '\.*' -maxdepth 2)
+dotfiles=$(find dotfiles -maxdepth 2 -name '\.*' )
 for dotfile in $dotfiles; do
     target_path="$HOME/$(basename $dotfile)"
     

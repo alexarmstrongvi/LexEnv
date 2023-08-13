@@ -16,28 +16,42 @@ pushd $DOTFILES_PATH > /dev/null
 ########################################
 # Configure ~/.local
 ########################################
-if [ -d $HOME/.local ]; then
-    local_paths="$(find dotfiles/.local/bin -type f)"
-    local_paths="${local_paths} $(find dotfiles/.local/lib -maxdepth 1 -type f)"
-    local_paths="${local_paths} $(find dotfiles/.local -maxdepth 2 -mindepth 2 -type d)"
-    for file in $local_paths; do
-        target_path="$HOME/${file##dotfiles/}"
-        echo -e "Creating symlink: $target_path"
-        ln -s -f $DOTFILES_PATH/$file $target_path
-    done
-else
-    ln -s $DOTFILES_PATH/.local $HOME/.local
-fi
+# Require local user folders
+mkdir -p $HOME/.local/bin 2> /dev/null
+mkdir -p $HOME/.local/lib 2> /dev/null
+mkdir -p $HOME/.local/share 2> /dev/null
+mkdir -p $HOME/.local/tmp 2> /dev/null
+sleep 0.001 # Wait for directory to be created
+
+local_paths="$(find dotfiles/.local/bin -type f)"
+local_paths="${local_paths} $(find dotfiles/.local/lib -maxdepth 1 -type f)"
+local_paths="${local_paths} $(find dotfiles/.local -maxdepth 2 -mindepth 2 -type d)"
+for file in $local_paths; do
+    target_path="$HOME/${file##dotfiles/}"
+    echo -e "Creating symlink: $target_path"
+    ln -s -f $DOTFILES_PATH/$file $target_path
+done
 
 # Require expected tmp directories
-mkdir $HOME/.local/tmp 2> /dev/null
-sleep 0.001 # Wait for directory to be created or else pushd fails
 pushd $HOME/.local/tmp > /dev/null
 mkdir -p vim/swapfiles vim/undodir vim/backupdir 2> /dev/null
 popd > /dev/null
 
+########################################
+# Configure ~/.config
+########################################
+mkdir $HOME/.config 2> /dev/null
+config_paths="$(find dotfiles/.config/ -maxdepth 1 -mindepth 1)"
+for file in $config_paths; do
+    target_path="$HOME/.config/$(basename $file)"
+    echo -e "Creating symlink: $target_path"
+    ln -s -f $DOTFILES_PATH/$file $target_path
+done
+
+########################################
 # Update ~/.gitconfig
-cfg=$HOME/gitconfig
+########################################
+cfg=$HOME/.gitconfig
 if [ -f $cfg ] && [ ! -L $cfg ] && ! grep -q "$DOTFILES_PATH" $cfg; then
     include_str="[include]\n    path = ${DOTFILES_PATH}/dotfiles/git/.gitconfig"
     echo -e "$include_str" >> $cfg
@@ -48,7 +62,11 @@ fi
 ########################################
 dotfiles=$(find dotfiles -maxdepth 2 -name '\.*' )
 for dotfile in $dotfiles; do
-    target_path="$HOME/$(basename $dotfile)"
+    bname="$(basename $dotfile)"
+    if [ $bname == ".local" ] || [ $bname == ".config" ]; then
+        continue
+    fi
+    target_path="$HOME/$bname"
 
     if [ -d $target_path ] && [ ! -L $target_path ]; then
         echo "Directory exists: $target_path [Skipping]"

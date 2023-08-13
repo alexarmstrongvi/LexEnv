@@ -20,7 +20,9 @@ filetype plugin on
 set confirm
 
 " Turn off bell sounds when errors occur, instead use visual indicator
-set belloff=all
+if exists('belloff')
+    set belloff=all
+endif
 
 " Override the 'ignorecase' option if the search pattern contains uppercase
 " characters
@@ -130,7 +132,11 @@ set colorcolumn=+1
 set laststatus=2
 
 " Show select whitespace characters
-set listchars=lead:.,tab:-->
+if v:version >= 800
+    set listchars=lead:.,tab:-->
+else
+    set listchars=precedes:.,tab:->
+endif
 set list
 
 " Code folding
@@ -148,7 +154,9 @@ syntax enable
 " Enables 24-bit RGB color in the TUI
 " Note: Messes up colors on terminal emulators and multiplexers that don't
 " support true colors
-set termguicolors
+if exists('termguicolors')
+    set termguicolors
+endif
 
 " Set the default shell type when vim is unable to infer
 let g:is_bash = 1

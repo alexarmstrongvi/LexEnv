@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+links="$(find ~ -maxdepth 4 -type l)"
+for d in $links; do 
+    if [ -n "$(ls -ld $d | grep dotfiles)" ]; then
+        echo "Unlinking $d"
+        unlink $d
+    fi
+done
+# TODO: Change *-backup files back to original name
+for path in $(find ~ -maxdepth 4 -name "*-backup"); do
+    target_path="${path%%-backup}"
+    if [ -e "$target_path" ]; then
+	echo "$target_path exists. Unable to install backup $path"
+	continue
+    fi
+    echo "Re-installing backed up dotfile: $path -> $target_path"
+    mv $path $target_path
+done

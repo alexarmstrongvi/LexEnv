@@ -33,7 +33,7 @@ export PATH=$HOME/.local/bin/:$PATH
 # Enable 256-color terminal
 if [ -n "$TMUX" ]; then
     export TERM='screen-256color'
-elif
+else
     # Tell programs the current terminal supports xterm's 256 color palette
     # Works even if current terminal is not xterm
     export TERM='xterm-256color'

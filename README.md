@@ -7,10 +7,12 @@ My environment configuration files
 ## Linux/MacOS Setup
 ```bash
 cd ${HOME}
-git clone git@github.com:alexarmstrongvi/LexEnv.git
+git clone --recurse-submodules git@github.com:alexarmstrongvi/LexEnv.git
 cd LexEnv
 ./install
 ```
+
+To uninstall symlinks at anypoint, run `~/LexEnv/uninstall`
 
 Special cases  
 * `local_bashrc.sh` - contains any site specific configurations. Add a symlink
@@ -19,6 +21,12 @@ Special cases
 
 ## Windows Setup
 TODO
+
+## Neovim Setup
+
+1. Install Neovim
+1. Clone Packer plugin manager
+1. run PackerSync
 
 ## Python Setup
 

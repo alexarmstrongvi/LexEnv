@@ -339,6 +339,10 @@ nnoremap <C-d> :call SmoothScroll(0)<Enter>
 " }}}
 " Plugins {{{
 " ==============================================================================
+if v:version < 800
+    set runtimepath^=~/.vim/pack/myplugins/start/*
+endif
+
 " Netrw file explorer (built-in but technically a plugin)
 " Disable banner
 let g:netrw_banner = 0
@@ -354,7 +358,7 @@ let g:netrw_keepdir = 0
 " Buffer settings (default = noma nomod nonu nowrap ro nobl
 let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
 " Set location of netrw cache files (e.g. .netrwhist)
-let g:netrw_home = '~/.local/tmp/vim'
+let g:netrw_home = $HOME.'/.local/tmp/vim'
 
 " Tabular plugin
 noremap <leader>= :Tabularize<Space>/

@@ -7,6 +7,14 @@ PATH="${PATH}:${HOME}/.local/bin"
 PATH="${PATH}:${HOME}/.ghcup/bin" # Haskell GHCup (not managed by homebrew)
 export PATH
 
+# Set project folders for activate_tmux_session
+export PROJECT_DIRS=" \
+${HOME} \
+${HOME}/MyDocuments/Coding \
+${HOME}/MyDocuments/Coding/Tutorials \
+${HOME}/MyDocuments/Coding/Tutorials/Python \
+"
+
 # Add GitHub ssh key
 ssh-add ~/.ssh/id_ed25519_github
 

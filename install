@@ -52,7 +52,8 @@ done
 # Update ~/.gitconfig
 ########################################
 cfg=$HOME/.gitconfig
-if [ -f $cfg ] && [ ! -L $cfg ] && ! grep -q "$DOTFILES_PATH" $cfg; then
+touch $cfg
+if ! grep -q "$DOTFILES_PATH" $cfg; then
     include_str="[include]\n    path = ${DOTFILES_PATH}/dotfiles/git/.gitconfig"
     echo -e "$include_str" >> $cfg
 fi
@@ -63,7 +64,7 @@ fi
 dotfiles=$(find dotfiles -maxdepth 2 -name '\.*' )
 for dotfile in $dotfiles; do
     bname="$(basename $dotfile)"
-    if [ $bname == ".local" ] || [ $bname == ".config" ]; then
+    if [ $bname == ".local" ] || [ $bname == ".config" ] || [ $bname == ".gitconfig" ]; then
         continue
     fi
     target_path="$HOME/$bname"

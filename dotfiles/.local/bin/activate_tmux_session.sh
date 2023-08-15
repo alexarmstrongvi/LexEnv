@@ -1,15 +1,10 @@
 # Add all subfolders in specific folders
-folders="$(find \
-    ~ \
-    ~/MyDocuments/Coding \
-    ~/MyDocuments/Coding/Tutorials \
-    ~/MyDocuments/Coding/Tutorials/Python \
+folders="$(find ${PROJECT_DIRS-~} \
     -type d -maxdepth 1 -mindepth 1 \
     -regex '.*/[^.][^/]*' \
 )"
 selected="$(echo $folders | sed 's/ /\n/g' | fzf)"
 
-find ~ ~/MyDocuments/Coding ~/MyDocuments/Coding/Tutorials ~/MyDocuments/Coding/Tutorials/Python -type d -maxdepth 1 -mindepth 1
 # If no folders were selected, then exit
 if [ -z "$selected" ]; then
     exit 0

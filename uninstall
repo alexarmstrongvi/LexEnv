@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
-links="$(find ~ -maxdepth 4 -type l)"
+links="$(find ~ -maxdepth 4 -type l 2> /dev/null)"
 for d in $links; do 
+    if [ ! -e $d ]; then continue; fi # Avoid warnings about missing files
     if [ -n "$(ls -ld $d | grep dotfiles)" ]; then
         echo "Unlinking $d"
         unlink $d
     fi
 done
-# TODO: Change *-backup files back to original name
-for path in $(find ~ -maxdepth 4 -name "*-backup"); do
+for path in $(find ~ -maxdepth 4 -name "*-backup" 2> /dev/null); do
     target_path="${path%%-backup}"
     if [ -e "$target_path" ]; then
-	echo "$target_path exists. Unable to install backup $path"
-	continue
+        echo "$target_path exists. Unable to install backup $path"
+        continue
     fi
     echo "Re-installing backed up dotfile: $path -> $target_path"
     mv $path $target_path

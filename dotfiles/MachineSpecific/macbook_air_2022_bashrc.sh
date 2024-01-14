@@ -13,6 +13,7 @@ ${HOME} \
 ${HOME}/MyDocuments/Coding \
 ${HOME}/MyDocuments/Coding/Tutorials \
 ${HOME}/MyDocuments/Coding/Tutorials/Python \
+${HOME}/MyDocuments/Coding/Tutorials/C++ \
 "
 
 # Add GitHub ssh key

@@ -11,7 +11,7 @@ fi
 PATH=$PATH:$HOME/.local/bin:$HOME/bin
 
 # Load modules
-module load git vim anaconda
+module load git vim tmux anaconda
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!

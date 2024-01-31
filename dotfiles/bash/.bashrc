@@ -28,7 +28,7 @@ fi
 export SHELL
 
 # Update PATH
-export PATH=$HOME/.local/bin/:$PATH
+export PATH=$HOME/.local/bin:$PATH
 
 # Enable 256-color terminal
 if [ -n "$TMUX" ]; then

@@ -1,6 +1,9 @@
-RootUtils/Atlas*.C
-RootUtils/Atlas*.h
+# Local symlinks
 local_bash_profile.sh
 local_bashrc.sh
-.netrwhist
-*.swp
+
+# Ignore 3rd party managed files and directories
+dotfiles/.config/nvim/plugin/packer_compiled.lua
+dotfiles/.config/iterm2/
+dotfiles/vim/.vim/pack/*
+dotfiles/zshell/.zsh/*/

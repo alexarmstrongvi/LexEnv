@@ -1,0 +1,8 @@
+# LLDB Debugger global configuration
+# Docs: https://lldb.llvm.org/man/lldb.html
+
+# Set REPL prompt
+settings set prompt '[lldb] => '
+
+# Always load the .lldbinit file in the current working directory
+settings set target.load-cwd-lldbinit true

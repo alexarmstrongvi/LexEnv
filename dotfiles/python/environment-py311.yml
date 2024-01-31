@@ -1,11 +1,13 @@
-name: py311
+name: py312
 dependencies:
-  -python=3.11
+  -python=3.12
   -numpy
   -scipy
   -pandas
+  -openpyxl
+  -xlsxwriter
+  -scikit-learn 
   -matplotlib
   -seaborn
-  -scikit-learn 
-  -jupyter
-  -jupyter_contrib_nbextensions
+  -plotly
+  -jupyterlab

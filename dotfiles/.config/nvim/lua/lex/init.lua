@@ -1,4 +1,4 @@
 print("Loading lua/lex select packages")
-require('lex.packer')
+require('lex.install_plugins')
 require('lex.remap')
 

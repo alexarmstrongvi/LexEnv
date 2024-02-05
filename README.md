@@ -19,14 +19,12 @@ Special cases
   inside `~/.local/bin/` called `local_bashrc.sh` that points to any shell
   script and it will be run by `.bashrc`:
 
+## Git setup
+Create a local configuration `~/.gitconfig-local` (not to be committed) that
+includes user information and site specific preferences
+
 ## Windows Setup
 TODO
-
-## Neovim Setup
-
-1. Install Neovim
-1. Clone Packer plugin manager
-1. run PackerSync
 
 ## Python Setup
 

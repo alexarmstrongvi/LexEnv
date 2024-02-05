@@ -74,6 +74,8 @@ set path+=**
 " ==============================================================================
 " Maximum width of text that is being inserted and autowrapped (gq)
 set textwidth=80
+" Disable visual wrap-around of text longer than 'textwidth'
+set nowrap
 
 " Minimal number of screen lines to keep above and below the cursor.
 set scrolloff=10

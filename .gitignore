@@ -7,3 +7,5 @@ dotfiles/.config/nvim/plugin/packer_compiled.lua
 dotfiles/.config/iterm2/
 dotfiles/vim/.vim/pack/*
 dotfiles/zshell/.zsh/*/
+dotfiles/.config/nvim/lazy-lock.json
+dotfiles/.config/nvim/backup

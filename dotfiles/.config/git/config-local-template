@@ -1,0 +1,4 @@
+# Copy this to ~/.gitconfig-local and set values
+[user]
+    name = John Doe
+    email = johndoe@domain.com

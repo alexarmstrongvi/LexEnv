@@ -1,6 +1,8 @@
 # Note: Only Git (1.7.10+) allows this file to be included in the main
 #       .gitconfig file using the syntax 'path = /path/to/file'. It will
 #       be silently ignored otherwise.
+[include]
+    path = "~/.gitconfig-local"
 
 [init]
     defaultBranch = main
@@ -22,3 +24,6 @@
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
 
     stash-revert = "!f() { N=${1:-0}; git stash show -p stash@{${N}} | git apply --reverse; }; f"
+
+[pull]
+    rebase = false

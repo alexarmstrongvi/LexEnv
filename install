@@ -29,7 +29,7 @@ local_paths="${local_paths} $(find dotfiles/.local -maxdepth 2 -mindepth 2 -type
 for file in $local_paths; do
     target_path="$HOME/${file##dotfiles/}"
     echo -e "Creating symlink: $target_path"
-    ln -s -f $DOTFILES_PATH/$file $target_path
+    ln -s -f $DOTFILES_PATH/$file $(dirname $target_path)
 done
 
 # Require expected tmp directories
@@ -45,7 +45,7 @@ config_paths="$(find dotfiles/.config/ -maxdepth 1 -mindepth 1)"
 for file in $config_paths; do
     target_path="$HOME/.config/$(basename $file)"
     echo -e "Creating symlink: $target_path"
-    ln -s -f $DOTFILES_PATH/$file $target_path
+    ln -s -f $DOTFILES_PATH/$file $(dirname $target_path)
 done
 
 ########################################
@@ -82,7 +82,9 @@ for dotfile in $dotfiles; do
     #     echo "WARNING :: Symbolic link exists: $target_path -> $(realpath $target_path)"
     # fi
     echo -e "Creating symlink: $target_path"
-    ln -s -f $DOTFILES_PATH/$dotfile $target_path
+    # Link to dirname so as to avoid nested symlinks when running install
+    # multiple times
+    ln -s -f $DOTFILES_PATH/$dotfile $(dirname $target_path)
 done
 popd > /dev/null
 

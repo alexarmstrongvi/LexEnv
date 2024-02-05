@@ -343,6 +343,7 @@ nnoremap <C-d> :call SmoothScroll(0)<Enter>
 " ==============================================================================
 if v:version < 800
     set runtimepath^=~/.vim/pack/myplugins/start/*
+    set runtimepath^=~/.vim/pack/myplugins/opt/*
 endif
 
 " Netrw file explorer (built-in but technically a plugin)

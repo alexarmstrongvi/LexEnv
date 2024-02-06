@@ -13,6 +13,8 @@ local_bash_profile.sh
 .netrwhist
 *.swp
 *~
+.ipynb_checkpoints
+tmp*
 
 # Packages #
 ############

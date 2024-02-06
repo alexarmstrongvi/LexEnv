@@ -1,6 +1,7 @@
 # Add all subfolders in specific folders
 folders="$(find ${PROJECT_DIRS-~} \
-    -type d -maxdepth 1 -mindepth 1 \
+    -maxdepth 1 -mindepth 1 \
+    -type d \
     -regex '.*/[^.][^/]*' \
 )"
 selected="$(echo $folders | sed 's/ /\n/g' | fzf)"

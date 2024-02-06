@@ -1,6 +1,7 @@
 # Local symlinks
 local_bash_profile.sh
 local_bashrc.sh
+dotfiles/.config/nvim/lua/site.lua
 
 # Ignore 3rd party managed files and directories
 dotfiles/.config/nvim/plugin/packer_compiled.lua

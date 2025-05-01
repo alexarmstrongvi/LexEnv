@@ -2,11 +2,17 @@
 ##################
 local_bash_profile.sh 
 
+# Environment #
+###################
+.python-version
+*.code-workspace
+
 # Compiled source #
 ###################
 *.o
 *.so
 *.pyc
+*.egg-info
 uv.lock
 
 # Temporary files #

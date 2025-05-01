@@ -190,8 +190,7 @@ highlight CursorLine ctermbg=233
 function! TrimTrailingWhitespace()
     " See https://vim.fandom.com/wiki/Remove_unwanted_spaces
     " Save last search term
-    let _s=@/
-    " Save last cursor position
+    let _s=@/ " Save last cursor position
     let l = line(".")
     let c = col(".")
     " Trim trailing whitespace
@@ -323,7 +322,12 @@ nnoremap <leader>cpf :cprevious<CR>
 nnoremap >w :s/\(\w*\)\%#\(\w\+\)\([^0-9A-Za-z_]\+\)\(\w\+\)/\4\3\1\2/<CR><C-o>h
 
 " Toggle paste mode to avoid any autoformatting effects (e.g. indentation)
-set pastetoggle=<F10>
+if !has('nvim') " Not supported by neovim
+    set pastetoggle=<F10>
+endif
+
+nnoremap <F6> :set nonumber norelativenumber<CR>
+nnoremap <F7> :set number relativenumber<CR>
 
 " Trim trailing whitespace
 nnoremap <F5> :call TrimTrailingWhitespace()<CR>
@@ -364,7 +368,9 @@ let g:netrw_bufsettings = 'noma nomod nu nowrap ro nobl'
 let g:netrw_home = $HOME.'/.local/tmp/vim'
 
 " Tabular plugin
-noremap <leader>= :Tabularize<Space>/
+if !has('nvim')
+    noremap <leader>= :Tabularize<Space>/
+endif
 
 " TODO
 " New text objects:

@@ -36,4 +36,13 @@
     "editor.minimap.enabled": false,
     "git.openRepositoryInParentFolders": "never",
     "workbench.sideBar.location": "right",
+    "github.copilot.advanced": {
+        "authProvider": "github"
+    },
+    "github.copilot.enable": {
+        "*": false,
+        "plaintext": false,
+        "markdown": false,
+        "scminput": false
+    },
 }

@@ -8,7 +8,7 @@ PATH="${PATH}:${HOME}/.ghcup/bin" # Haskell GHCup (not managed by homebrew)
 export PATH
 
 # Set project folders for activate_tmux_session
-export PROJECT_DIRS=" \
+export MY_PROJECT_DIRS=" \
 ${HOME} \
 ${HOME}/MyDocuments/Coding \
 ${HOME}/MyDocuments/Coding/Tutorials \

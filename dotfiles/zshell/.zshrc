@@ -3,7 +3,7 @@
 ################################################################################
 
 if [ -f $HOME/.bashrc ]; then
-    . $HOME/.bashrc;
+    source $HOME/.bashrc;
 fi
 
 # Turn off all beeps
@@ -20,6 +20,9 @@ PROMPT='%F{$([ $? = 0 ] && echo green || echo red)}_____________________________
 |%B%d%b $(git_super_status)
 | => '
 
+autoload -U compinit
+compinit
+
 # Plugins
 if [ -d $HOME/.zsh/zsh-autosuggestions ]; then
     source $HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -27,6 +30,7 @@ fi
 # if [ -d ${HOME}/.zsh/zsh-autocomplete ]; then
 #     source ${HOME}/.zsh/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 # fi
+eval "$(zoxide init zsh)"
 
 ################################################################################
 print_success "== Completed running .zshrc =="

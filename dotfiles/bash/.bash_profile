@@ -5,7 +5,7 @@
 source $HOME/.local/lib/bash_utils.sh
 # Include interactive non-login shell configurations
 if is_interactive_shell && [ -f ~/.bashrc ]; then
-    . ~/.bashrc
+    source ~/.bashrc
 fi
 
 # Site specific configuration

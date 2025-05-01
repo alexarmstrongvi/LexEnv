@@ -23,6 +23,13 @@ Special cases
 Create a local configuration `~/.gitconfig-local` (not to be committed) that
 includes user information and site specific preferences
 
+## NeoVim setup
+1. Install NeoVim
+2. Create python venv with pynvim and create `.config/nvim/lua/site.lua`
+3. Install FuzzyFinder: `fzf`
+3. Install RipGrep: `rg`
+3. Install Find: `fd`
+
 ## Windows Setup
 TODO
 

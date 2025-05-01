@@ -120,6 +120,8 @@ alias ll='ls -FGlAhpa'
 alias tally='sort | uniq -c | sort -rn'
 # Disk usage of folders/files in pwd
 alias dupwd="du -a -h -d 1 | sort -hr"
+# Activate virtual environments
+alias activate="source $HOME/LexEnv/dotfiles/.local/bin/activate.sh"
 
 ################################################################################
 # Site specific configuration

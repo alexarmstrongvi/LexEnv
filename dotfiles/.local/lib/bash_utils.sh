@@ -19,6 +19,14 @@ function is_login_shell() {
     { is_zshell && [[ -o login ]]; } || { is_bash_shell && shopt -q login_shell; }
 }
 
+function is_mac() {
+    [[ "$OSTYPE" == "darwin"* ]]
+}
+
+function is_sourced() {
+    [[ "${BASH_SOURCE[0]}" != "${0}" ]]
+}
+
 function print_shell_type() {
     # To demo all types of shells, open a terminal emulator and follow steps below 
     # 1) The current interactive shell type

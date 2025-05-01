@@ -29,6 +29,10 @@ export SHELL
 
 # Update PATH
 export PATH=$HOME/.local/bin:$PATH
+if [ -f .cargo/env ]; then
+    # Add rust binaries (e.g. uv) to path
+    . "$HOME/.cargo/env"
+fi
 
 # Enable 256-color terminal
 if [ -n "$TMUX" ]; then
@@ -133,3 +137,4 @@ export PYTHONPATH=$(remove_path_duplicates "$PYTHONPATH")
 # Print about completion if in interactive shell
 print_shell_type
 print_success "== Completed running .bashrc =="
+

@@ -19,6 +19,7 @@
     ls-config = config --list
     ls-branch = branch -a
     ls-remote2 = remote show origin
+    diffword = diff --color-words --minimal
 
     # See http://blog.kfish.org/2010/04/git-lola.html
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all

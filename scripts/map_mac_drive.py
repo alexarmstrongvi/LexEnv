@@ -5,19 +5,19 @@ from typing import Callable, Any
 
 # Constants
 UNIX_STD_DIRS = (
-       # This pattern of folders occurs in many places in a unix system
-        # - /
-        # - /usr/
-        # - /opt/local
-        'bin',     # Binaries
-        'sbin',    # System binaries
-        'lib',     # Libraries for binaries
-        'libexec', # Libraries for executable programs
-        'share',   # Read-only architecture independent data files
-        'include', #
-        'etc',     # Program configuration files
-        'var',     #
-        'tmp',     # Temporary files often cleared during reboot
+    # This pattern of folders occurs in many places in a unix system
+    # - /
+    # - /usr/
+    # - /opt/local
+    'bin',     # Binaries
+    'sbin',    # System binaries
+    'lib',     # Libraries for binaries
+    'libexec', # Libraries for executable programs
+    'share',   # Read-only architecture independent data files
+    'include', #
+    'etc',     # Program configuration files
+    'var',     #
+    'tmp',     # Temporary files often cleared during reboot
 )
 # Type aliases
 DirMap =  str | list[Any] | dict[str, Any]

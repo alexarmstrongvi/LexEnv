@@ -1,5 +1,5 @@
 # Add all subfolders in specific folders
-folders="$(find ${PROJECT_DIRS-~} \
+folders="$(find ${MY_PROJECT_DIRS-~} \
     -maxdepth 1 -mindepth 1 \
     -type d \
     -regex '.*/[^.][^/]*' \
